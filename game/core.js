@@ -2,8 +2,8 @@ var assets = {};
 var objectManager;
 
 function preload() {
-    assets['player'] = loadImage("./assets/player.png");
-    assets['block']  = loadImage("./assets/block.png");
+    assets['player'] = loadImage("./assets/player_32_64.png");
+    assets['block']  = loadImage("./assets/block_32_32.png");
 }
 
 function setup() {

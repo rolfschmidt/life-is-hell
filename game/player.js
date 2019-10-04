@@ -41,7 +41,7 @@ Player.prototype.draw = function() {
     else {
         image(assets['player'], this.data['playerX'], this.data['playerY']);
     }
-    rect(this.data['playerX'], this.data['playerY'], this.data['playerWidth'], this.data['playerHeight']);
+    // rect(this.data['playerX'], this.data['playerY'], this.data['playerWidth'], this.data['playerHeight']);
     pop();
 }
 
