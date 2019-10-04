@@ -4,6 +4,7 @@ var objectManager;
 function preload() {
     assets['player'] = loadImage("./assets/player_32_64.png");
     assets['block']  = loadImage("./assets/block_32_32.png");
+    assets['map']  = loadImage("./assets/background_1024_768.png");
 }
 
 function setup() {

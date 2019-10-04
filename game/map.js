@@ -22,19 +22,29 @@ function Map(params) {
 }
 
 Map.prototype.draw = function() {
-    for ( var drawY = 0; drawY < this.data['mapHeight']; drawY += 32 ) {
-        for ( var drawX = 0; drawX < this.data['mapWidth']; drawX += 32 ) {
+    image(assets['map'], 0, 0);
+    // for ( var drawY = 0; drawY < this.data['mapHeight']; drawY += 32 ) {
+    //     for ( var drawX = 0; drawX < this.data['mapWidth']; drawX += 32 ) {
 
-            // draw grey cells for map
-            rectColor = this.cellColor(drawX, drawY);
-            push();
-            scale(this.scaleWidth, this.scaleHeight);
-            fill(rectColor);
-            stroke(1);
-            rect(drawX, drawY, 32, 32 );
-            pop();
-        }
-    }
+    //         // draw grey cells for map
+    //         rectColor = this.cellColor(drawX, drawY);
+    //         push();
+    //         scale(this.scaleWidth, this.scaleHeight);
+    //         fill(rectColor);
+    //         stroke(1);
+    //         rect(drawX, drawY, 32, 32 );
+    //         pop();
+    //     }
+    // }
+}
+
+Map.prototype.eventObjectManagerUpdateAttribute = function(params) {
+    // var eventObject = objectManager.getObject(params.objectID);
+
+    // if ( eventObject.data['name'] != 'Player' ) return;
+    // if ( params.attribute != 'playerX' ) return;
+
+    // console.log('player', params);
 }
 
 Map.prototype.windowResized = function() {
