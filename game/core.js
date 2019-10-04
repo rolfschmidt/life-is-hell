@@ -67,7 +67,7 @@ function setup() {
 }
 
 function draw() {
-    objectManager.callFunction('draw');
+    //objectManager.callFunction('draw');
 }
 
 function windowResized() {
@@ -104,4 +104,8 @@ function gameInterval() {
     if (!objectManager) return;
 
     objectManager.callFunction('move');
+    if ( objectManager.data['drawNeeded'] ) {
+        objectManager.callFunction('draw');
+        objectManager.data['drawNeeded'] = false;
+    }
 }

@@ -120,7 +120,7 @@ Player.prototype.eventCollisionCheckCollision = function(params) {
 }
 
 Player.prototype.collisionBlock = function(params) {
-    console.log('player collides', params);
+    // console.log('player collides', params);
 
     // var collisionObject = params['collisionObject'];
     // var distance        = params['distance'];

@@ -8,8 +8,9 @@ function ObjectManager(params) {
         'Player',
         'Other',
     ];
-    this.data['deleteObjects']    = [];
-    this.data['objectCounter']     = 0;
+    this.data['deleteObjects'] = [];
+    this.data['objectCounter'] = 0;
+    this.data['drawNeeded']    = true;
 }
 
 ObjectManager.prototype.loopObjects = function(category, callback) {
@@ -173,6 +174,8 @@ ObjectManager.prototype.updateAttribute = function(objectID, attribute, attribut
         'objectID': objectID,
         'attribute': attribute,
     });
+
+    this.data['drawNeeded'] = true;
 };
 
 ObjectManager.prototype.destroyObjectIndex = function(objectID) {
