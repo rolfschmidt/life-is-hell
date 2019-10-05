@@ -4,68 +4,60 @@ class SceneLevel1 extends Phaser.Scene {
     }
 
     preload() {
-        this.StateManager      = new StateManager();
-        this.MusicManager      = new MusicManager();
-        this.BackgroundManager = new BackgroundManager();
-        this.PlatformManager   = new PlatformManager();
-        this.DoorManager       = new DoorManager();
-        this.PlayerManager     = new PlayerManager();
-        this.ControlManager    = new ControlManager();
-        this.StarManager       = new StarManager();
-        this.BombManager       = new BombManager();
-        this.TrapManager       = new TrapManager();
-        this.CollisionManager  = new CollisionManager();
-        this.CameraManager     = new CameraManager();
-        this.ScoreManager      = new ScoreManager();
+        var GlobalScene = this.scene.manager.keys['SceneGlobal'];
 
-        this.StateManager.preload(this);
-        this.MusicManager.preload(this);
-        this.BackgroundManager.preload(this);
-        this.PlatformManager.preload(this);
-        this.DoorManager.preload(this);
-        this.PlayerManager.preload(this);
-        this.ControlManager.preload(this);
-        this.StarManager.preload(this);
-        this.BombManager.preload(this);
-        this.TrapManager.preload(this);
-        this.CollisionManager.preload(this);
-        this.CameraManager.preload(this);
-        this.ScoreManager.preload(this);
+        GlobalScene.StateManager.preload(this);
+        GlobalScene.MusicManager.preload(this);
+        GlobalScene.BackgroundManager.preload(this);
+        GlobalScene.PlatformManager.preload(this);
+        GlobalScene.DoorManager.preload(this);
+        GlobalScene.PlayerManager.preload(this);
+        GlobalScene.ControlManager.preload(this);
+        GlobalScene.StarManager.preload(this);
+        GlobalScene.BombManager.preload(this);
+        GlobalScene.TrapManager.preload(this);
+        GlobalScene.CollisionManager.preload(this);
+        GlobalScene.CameraManager.preload(this);
+        GlobalScene.ScoreManager.preload(this);
     }
 
     create() {
-        this.StateManager.create(this);
-        this.MusicManager.create(this);
-        this.BackgroundManager.create(this);
-        this.PlatformManager.create(this);
-        this.DoorManager.create(this);
-        this.PlayerManager.create(this);
-        this.ControlManager.create(this);
-        this.StarManager.create(this);
-        this.BombManager.create(this);
-        this.TrapManager.create(this);
-        this.CollisionManager.create(this);
-        this.CameraManager.create(this);
-        this.ScoreManager.create(this);
+        var GlobalScene = this.scene.manager.keys['SceneGlobal'];
+
+        GlobalScene.StateManager.create(this);
+        GlobalScene.MusicManager.create(this);
+        GlobalScene.BackgroundManager.create(this);
+        GlobalScene.PlatformManager.create(this);
+        GlobalScene.DoorManager.create(this);
+        GlobalScene.PlayerManager.create(this);
+        GlobalScene.ControlManager.create(this);
+        GlobalScene.StarManager.create(this);
+        GlobalScene.BombManager.create(this);
+        GlobalScene.TrapManager.create(this);
+        GlobalScene.CollisionManager.create(this);
+        GlobalScene.CameraManager.create(this);
+        GlobalScene.ScoreManager.create(this);
     }
 
     update () {
-        if (this.StateManager.done) {
+        var GlobalScene = this.scene.manager.keys['SceneGlobal'];
+
+        if (GlobalScene.StateManager.done) {
             return;
         }
 
-        this.StateManager.update(this);
-        this.MusicManager.update(this);
-        this.BackgroundManager.update(this);
-        this.PlatformManager.update(this);
-        this.DoorManager.update(this);
-        this.PlayerManager.update(this);
-        this.ControlManager.update(this);
-        this.StarManager.update(this);
-        this.BombManager.update(this);
-        this.TrapManager.update(this);
-        this.CollisionManager.update(this);
-        this.CameraManager.update(this);
-        this.ScoreManager.update(this);
+        GlobalScene.StateManager.update(this);
+        GlobalScene.MusicManager.update(this);
+        GlobalScene.BackgroundManager.update(this);
+        GlobalScene.PlatformManager.update(this);
+        GlobalScene.DoorManager.update(this);
+        GlobalScene.PlayerManager.update(this);
+        GlobalScene.ControlManager.update(this);
+        GlobalScene.StarManager.update(this);
+        GlobalScene.BombManager.update(this);
+        GlobalScene.TrapManager.update(this);
+        GlobalScene.CollisionManager.update(this);
+        GlobalScene.CameraManager.update(this);
+        GlobalScene.ScoreManager.update(this);
     }
 }
