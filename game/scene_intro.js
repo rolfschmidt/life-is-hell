@@ -21,7 +21,7 @@ class SceneIntro extends Phaser.Scene {
 
         // load intro music
         this.introMusic = this.sound.add('intro_music', {
-            mute: false,
+            mute: (config.devMode ? true : false),
             volume: 0.1,
             rate: 1,
             detune: 0,
