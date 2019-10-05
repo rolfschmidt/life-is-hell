@@ -119,9 +119,6 @@ class SceneLevel1 extends Phaser.Scene {
 
         bombs = this.physics.add.group();
 
-        //  The score
-        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-
         //  Collide the player and the stars with the platforms
         this.physics.add.collider(player, platforms);
         this.physics.add.collider(player, bossDoor);
@@ -143,9 +140,13 @@ class SceneLevel1 extends Phaser.Scene {
         camera.setBounds(0, 0, config.physics.arcade.width, 768, false);
         camera.startFollow(player);
         camera.zoom = 1.6;
+
+        scoreText = this.add.text(camera.centerX * (2 - camera.zoom), camera.centerY * (2 - camera.zoom), 'score: 0', { fontSize: '32px', fill: '#000' });
+        scoreText.setScrollFactor(0);
     }
 
     update () {
+
         if (gameOver) {
             return;
         }
@@ -155,11 +156,15 @@ class SceneLevel1 extends Phaser.Scene {
             player.godMode    = true;
             player.body.moves = false;
             camera.zoom = 1;
+            scoreText.x = camera.centerX * 0.01;
+            scoreText.y = camera.centerY * 0.01;
         }
         if (cursors.F10.isDown) {
             player.godMode    = false;
             player.body.moves = true;
             camera.zoom = 1.6;
+            scoreText.x = camera.centerX * (2 - camera.zoom);
+            scoreText.y = camera.centerY * (2 - camera.zoom);
         }
 
         if (cursors.left.isDown || cursors.A.isDown) {
@@ -234,7 +239,7 @@ class SceneLevel1 extends Phaser.Scene {
         //  Add and update the score
         score += 10;
         if (player.godMode) score += 10000;
-        scoreText.setText('Score: ' + score);
+        scoreText.setText('score: ' + score);
 
         if (stars.countActive(true) === 0)
         {
