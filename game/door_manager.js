@@ -5,8 +5,8 @@ DoorManager.prototype.preload = function(scene) {
 }
 
 DoorManager.prototype.create = function(scene) {
-    scene.bossDoors = scene.physics.add.group();
-    scene.bossDoor = scene.bossDoors.create(940, 156, 'level1_boss_door');
+    scene.bossDoors           = scene.physics.add.group();
+    scene.bossDoor            = scene.bossDoors.create(940, 156, 'level1_boss_door');
     scene.bossDoor.body.moves = false;
 }
 

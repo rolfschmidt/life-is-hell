@@ -73,7 +73,7 @@ CollisionManager.prototype.hitTrap = function(scene, player, trap) {
 
     player.anims.play('turn');
 
-    scene.StateManager.hitTrap(this);
+    scene.StateManager.done = true;
 }
 
 CollisionManager.prototype.hitBomb = function(scene, player, bomb) {
@@ -85,7 +85,7 @@ CollisionManager.prototype.hitBomb = function(scene, player, bomb) {
 
     player.anims.play('turn');
 
-    scene.StateManager.hitBomb(this);
+    scene.StateManager.done = true;
 }
 
 CollisionManager.prototype.enterBoss = function(scene, player, door) {
