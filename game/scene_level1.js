@@ -61,7 +61,9 @@ class SceneLevel1 extends Phaser.Scene {
             platforms.create(groundX, 568, blockType);
         }
 
-        this.add.image(940, 156, 'level1_boss_door');
+        var bossDoors = this.physics.add.group();
+        var bossDoor = bossDoors.create(940, 156, 'level1_boss_door');
+        bossDoor.body.moves = false;
 
         // The player and its settings
         player = this.physics.add.sprite(100, 450, 'level1_dude');
@@ -132,13 +134,16 @@ class SceneLevel1 extends Phaser.Scene {
 
         //  Collide the player and the stars with the platforms
         this.physics.add.collider(player, platforms);
+        this.physics.add.collider(player, bossDoor);
         this.physics.add.collider(stars, platforms);
         this.physics.add.collider(bombs, platforms);
+        this.physics.add.collider(bossDoor, platforms);
 
         //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
         this.physics.add.overlap(player, stars, this.collectStar, null, this);
 
         this.physics.add.collider(player, bombs, this.hitBomb, null, this);
+        this.physics.add.collider(player, bossDoors, this.enterBoss, null, this);
 
         // add camera to follow the player
         camera = this.cameras.main;
@@ -263,6 +268,13 @@ class SceneLevel1 extends Phaser.Scene {
         player.anims.play('turn');
 
         gameOver = true;
+    }
+
+    enterBoss(player, door) {
+        if (!cursors.up.isDown && !cursors.W.isDown) return;
+
+        this.level1Music.stop();
+        this.scene.start("SceneLevel1Boss");
     }
 
 }
