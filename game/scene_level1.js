@@ -271,6 +271,8 @@ class SceneLevel1 extends Phaser.Scene {
     }
 
     enterBoss(player, door) {
+        if (!cursors.up.isDown && !cursors.W.isDown) return;
+
         this.level1Music.stop();
         this.scene.start("SceneLevel1Boss");
     }
