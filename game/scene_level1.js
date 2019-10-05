@@ -71,16 +71,9 @@ class SceneLevel1 extends Phaser.Scene {
 
         // The this.player and its settings
         this.player = this.physics.add.sprite(100, 450, 'sprites', 'stand_right');
-
         this.player.lastDirection = 'right';
-
-        //  this.Player physics properties. Give the little guy a slight bounce.
         this.player.setBounce(0.2);
-
-        // disable bounds because we want to loop the background
         this.player.setCollideWorldBounds(true);
-
-        // this.player default values
         this.player.godMode             = false;
         this.player.godModeMoveSpeed    = 3;
         this.player.godModeZoom         = 1;
