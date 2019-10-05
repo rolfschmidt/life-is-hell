@@ -6,6 +6,7 @@ class SceneLevel1 extends Phaser.Scene {
     preload() {
         this.load.image('level1_sky', './assets/background_scene_level1_1024_768.png');
         this.load.image('level1_block_middle', './assets/block_middle_32_32.png');
+        this.load.image('level1_boss_door', './assets/boss_door_96_96.png');
         this.load.image('level1_star', './assets/star.png');
         this.load.image('level1_bomb', './assets/bomb.png');
         this.load.spritesheet('level1_dude', './assets/dude.png', { frameWidth: 32, frameHeight: 48 });
@@ -34,6 +35,8 @@ class SceneLevel1 extends Phaser.Scene {
         for (var groundX = 0; groundX < config.physics.arcade.width; groundX = groundX + 32) {
             platforms.create(groundX, 568, 'level1_block_middle');
         }
+
+        this.add.image(940, 156, 'level1_boss_door');
 
         // The player and its settings
         player = this.physics.add.sprite(100, 450, 'level1_dude');
