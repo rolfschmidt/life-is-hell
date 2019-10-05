@@ -142,6 +142,7 @@ class SceneLevel1 extends Phaser.Scene {
         camera.useBounds = true;
         camera.setBounds(0, 0, config.physics.arcade.width, 768, false);
         camera.startFollow(player);
+        camera.zoom = 1.6;
     }
 
     update () {
