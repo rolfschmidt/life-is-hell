@@ -42,7 +42,7 @@ function create ()
 {
     //  A simple background for our game
     this.add.image(512, 384, 'sky');
-    for (var backgroundX = 512; backgroundX < config.physics.arcade.width; backgroundX = backgroundX + 1024) {
+    for (var backgroundX = 512; backgroundX < config.physics.arcade.width + 1024; backgroundX = backgroundX + 1024) {
         this.add.image(backgroundX - 512, 384, 'sky');
     }
 
@@ -58,7 +58,7 @@ function create ()
     platforms.create(50, 250, 'ground');
     platforms.create(750, 220, 'ground');
 
-    for (var groundX = 200; groundX < 20000; groundX = groundX + 200) {
+    for (var groundX = 200; groundX < config.physics.arcade.width; groundX = groundX + 200) {
         platforms.create(groundX, 568, 'ground');
 
         groundX += 200;
@@ -129,7 +129,7 @@ function create ()
     // add camera to follow the player
     camera = this.cameras.main;
     camera.useBounds = true;
-    camera.setBounds(0, 0, 4096, 768, false);
+    camera.setBounds(0, 0, config.physics.arcade.width, 768, false);
     camera.startFollow(player);
 }
 
