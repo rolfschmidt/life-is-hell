@@ -6,6 +6,8 @@ class SceneLevel1 extends Phaser.Scene {
     preload() {
         this.load.image('level1_sky', './assets/background_scene_level1_1024_768.png');
         this.load.image('level1_block_middle', './assets/block_middle_32_32.png');
+        this.load.image('level1_block_left', './assets/block_left_32_32.png');
+        this.load.image('level1_block_right', './assets/block_right_32_32.png');
         this.load.image('level1_boss_door', './assets/boss_door_96_96.png');
         this.load.image('level1_star', './assets/star.png');
         this.load.image('level1_bomb', './assets/bomb.png');
@@ -24,16 +26,28 @@ class SceneLevel1 extends Phaser.Scene {
         platforms = this.physics.add.staticGroup();
 
         for (var groundX = 420; groundX < 920; groundX = groundX + 32) {
-            platforms.create(groundX, 400, 'level1_block_middle');
+            var blockType = 'level1_block_middle';
+            if (groundX == 420) blockType = 'level1_block_left';
+            if (groundX == 900) blockType = 'level1_block_right';
+            platforms.create(groundX, 400, blockType);
         }
         for (var groundX = 0; groundX < 320; groundX = groundX + 32) {
-            platforms.create(groundX, 250, 'level1_block_middle');
+            var blockType = 'level1_block_middle';
+            if (groundX == 0) blockType = 'level1_block_left';
+            if (groundX == 320 - 32) blockType = 'level1_block_right';
+            platforms.create(groundX, 250, blockType);
         }
         for (var groundX = 750; groundX < 1070; groundX = groundX + 32) {
-            platforms.create(groundX, 220, 'level1_block_middle');
+            var blockType = 'level1_block_middle';
+            if (groundX == 750) blockType = 'level1_block_left';
+            if (groundX == 1070 - 32) blockType = 'level1_block_right';
+            platforms.create(groundX, 220, blockType);
         }
         for (var groundX = 0; groundX < config.physics.arcade.width; groundX = groundX + 32) {
-            platforms.create(groundX, 568, 'level1_block_middle');
+            var blockType = 'level1_block_middle';
+            if (groundX == 0) blockType = 'level1_block_left';
+            if (groundX == config.physics.arcade.width - 32) blockType = 'level1_block_right';
+            platforms.create(groundX, 568, blockType);
         }
 
         this.add.image(940, 156, 'level1_boss_door');
