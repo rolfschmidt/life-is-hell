@@ -16,6 +16,7 @@ var config = {
 
 var player;
 var stars;
+var traps;
 var bombs;
 var platforms;
 var cursors;

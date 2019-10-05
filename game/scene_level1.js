@@ -5,6 +5,7 @@ class SceneLevel1 extends Phaser.Scene {
 
     preload() {
         this.load.image('level1_sky', './assets/background_scene_level1_1024_768.png');
+        this.load.image('level1_block_kill', './assets/block_kill_32_32.png');
         this.load.image('level1_block_middle', './assets/block_middle_32_32.png');
         this.load.image('level1_block_left', './assets/block_left_32_32.png');
         this.load.image('level1_block_right', './assets/block_right_32_32.png');
@@ -127,6 +128,9 @@ class SceneLevel1 extends Phaser.Scene {
 
         });
 
+        traps = this.physics.add.staticGroup();
+        var trap = traps.create(940, 567, 'level1_block_kill');
+
         bombs = this.physics.add.group();
 
         //  The score
@@ -137,12 +141,14 @@ class SceneLevel1 extends Phaser.Scene {
         this.physics.add.collider(player, bossDoor);
         this.physics.add.collider(stars, platforms);
         this.physics.add.collider(bombs, platforms);
+        this.physics.add.collider(traps, platforms);
         this.physics.add.collider(bossDoor, platforms);
 
         //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
         this.physics.add.overlap(player, stars, this.collectStar, null, this);
 
         this.physics.add.collider(player, bombs, this.hitBomb, null, this);
+        this.physics.add.collider(player, traps, this.hitTrap, null, this);
         this.physics.add.collider(player, bossDoors, this.enterBoss, null, this);
 
         // add camera to follow the player
@@ -256,6 +262,19 @@ class SceneLevel1 extends Phaser.Scene {
             bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
 
         }
+    }
+
+    hitTrap (player, trap) {
+        if (player.godMode) return;
+        if ( trap.x - player.x > trap.width * 0.6 ) return;
+
+        this.physics.pause();
+
+        player.setTint(0xff0000);
+
+        player.anims.play('turn');
+
+        gameOver = true;
     }
 
     hitBomb (player, bomb) {
