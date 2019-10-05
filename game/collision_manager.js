@@ -73,7 +73,9 @@ CollisionManager.prototype.hitTrap = function(scene, player, trap) {
 
     player.anims.play('turn');
 
-    scene.StateManager.done = true;
+    var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
+
+    GlobalScene.StateManager.done = true;
 }
 
 CollisionManager.prototype.hitBomb = function(scene, player, bomb) {
@@ -85,7 +87,9 @@ CollisionManager.prototype.hitBomb = function(scene, player, bomb) {
 
     player.anims.play('turn');
 
-    scene.StateManager.done = true;
+    var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
+
+    GlobalScene.StateManager.done = true;
 }
 
 CollisionManager.prototype.enterBoss = function(scene, player, door) {
