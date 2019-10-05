@@ -11,7 +11,7 @@ var config = {
             width: 20000
         }
     },
-    scene: [SceneGlobal, SceneIntro, SceneLevel1]
+    scene: [SceneGlobal, SceneIntro, SceneLevel1, SceneLevel1Boss]
 };
 
 var player;
