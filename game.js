@@ -6,7 +6,8 @@ var config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 300 },
-            debug: false
+            debug: false,
+            width: 20000
         }
     },
     scene: {
@@ -39,7 +40,7 @@ function preload ()
 function create ()
 {
     //  A simple background for our game
-    this.add.image(512, 384, 'sky');
+    var background = this.add.image(512, 384, 'sky');
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = this.physics.add.staticGroup();
@@ -53,6 +54,12 @@ function create ()
     platforms.create(50, 250, 'ground');
     platforms.create(750, 220, 'ground');
 
+    for (var groundX = 200; groundX < 20000; groundX = groundX + 200) {
+        platforms.create(groundX, 568, 'ground');
+
+        groundX += 200;
+    }
+
     // The player and its settings
     player = this.physics.add.sprite(100, 450, 'dude');
 
@@ -60,7 +67,7 @@ function create ()
     player.setBounce(0.2);
 
     // disable bounds because we want to loop the background
-    player.setCollideWorldBounds(false);
+    player.setCollideWorldBounds(true);
 
     //  Our player animations, turning, walking left and walking right.
     this.anims.create({
