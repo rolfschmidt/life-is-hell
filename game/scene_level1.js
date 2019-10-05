@@ -5,7 +5,7 @@ class SceneLevel1 extends Phaser.Scene {
 
     preload() {
         this.load.image('level1_sky', './assets/background_scene_level1_1024_768.png');
-        this.load.image('level1_ground', './assets/platform.png');
+        this.load.image('level1_block_middle', './assets/block_middle_32_32.png');
         this.load.image('level1_star', './assets/star.png');
         this.load.image('level1_bomb', './assets/bomb.png');
         this.load.spritesheet('level1_dude', './assets/dude.png', { frameWidth: 32, frameHeight: 48 });
@@ -22,14 +22,17 @@ class SceneLevel1 extends Phaser.Scene {
         //  The platforms group contains the ground and the 2 ledges we can jump on
         platforms = this.physics.add.staticGroup();
 
-        platforms.create(600, 400, 'level1_ground');
-        platforms.create(50, 250, 'level1_ground');
-        platforms.create(750, 220, 'level1_ground');
-
-        for (var groundX = 200; groundX < config.physics.arcade.width; groundX = groundX + 200) {
-            platforms.create(groundX, 568, 'level1_ground');
-
-            groundX += 200;
+        for (var groundX = 420; groundX < 920; groundX = groundX + 32) {
+            platforms.create(groundX, 400, 'level1_block_middle');
+        }
+        for (var groundX = 0; groundX < 320; groundX = groundX + 32) {
+            platforms.create(groundX, 250, 'level1_block_middle');
+        }
+        for (var groundX = 750; groundX < 1070; groundX = groundX + 32) {
+            platforms.create(groundX, 220, 'level1_block_middle');
+        }
+        for (var groundX = 0; groundX < config.physics.arcade.width; groundX = groundX + 32) {
+            platforms.create(groundX, 568, 'level1_block_middle');
         }
 
         // The player and its settings
