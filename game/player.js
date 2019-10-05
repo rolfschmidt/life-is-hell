@@ -90,42 +90,47 @@ Player.prototype.move = function() {
 }
 
 Player.prototype.keyPressed = function(params) {
-    switch (params['keyCode']) {
-        case 65: // A
-            this.data['directionX'] = -1;
-        break;
-        case 68: // D
-            this.data['directionX'] = 1;
-        break;
-        case 87: // W
-            // this.data['directionY'] = -1;
-        break;
-        case 83: // S
-            this.data['directionY'] = 1;
-        break;
+    console.log('key', params['keyCode'])
+    if ( params['keyCode'] == 65 || params['keyCode'] == 37 ) { // A or ARROW.left
+        this.data['directionX'] = -1;
+        return;
+    }
+    if ( params['keyCode'] == 68 || params['keyCode'] == 39 ) { // D or ARROW.right
+        this.data['directionX'] = 1;
+        return;
+    }
+    if ( params['keyCode'] == 87 || params['keyCode'] == 38 ) { // W or ARROW.down
+        // this.data['directionY'] = -1;
+        return;
+    }
+    if ( params['keyCode'] == 83 || params['keyCode'] == 40 ) { // S or ARROW.up
+        this.data['directionY'] = 1;
+        return;
     }
 
     // console.log(params['keyCode'], this.data['directionX'], this.data['directionY']);
 }
 
 Player.prototype.keyReleased = function(params) {
-    switch (params['keyCode']) {
-        case 65: // A
-            if ( this.data['directionX'] != -1 ) break;
-            this.data['directionX'] = 0;
-        break;
-        case 68: // D
-            if ( this.data['directionX'] != 1 ) break;
-            this.data['directionX'] = 0;
-        break;
-        case 87: // W
-            if ( this.data['directionY'] != -1 ) break;
-            // this.data['directionY'] = 0;
-        break;
-        case 83: // S
-            if ( this.data['directionY'] != 1 ) break;
-            // this.data['directionY'] = 0;
-        break;
+    if (params['keyCode'] == 65 || params['keyCode'] == 37) { // A or ARROW.left
+        if ( this.data['directionX'] != -1 ) return;
+        this.data['directionX'] = 0;
+        return;
+    }
+    if (params['keyCode'] == 68 || params['keyCode'] == 39) { // D or ARROW.right
+        if ( this.data['directionX'] != 1 ) return;
+        this.data['directionX'] = 0;
+        return;
+    }
+    if (params['keyCode'] == 87 || params['keyCode'] == 38) { // W or ARROW.down
+        if ( this.data['directionY'] != -1 ) return;
+        // this.data['directionY'] = 0;
+        return;
+    }
+    if (params['keyCode'] == 83 || params['keyCode'] == 40) { // S or ARROW.up
+        if ( this.data['directionY'] != 1 ) return;
+        // this.data['directionY'] = 0;
+        return;
     }
 
     //console.log(params['keyCode'], this.data['directionX'], this.data['directionY']);
