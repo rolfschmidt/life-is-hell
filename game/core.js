@@ -2,7 +2,7 @@ var assets = {};
 var objectManager;
 
 function preload() {
-    assets['player'] = loadImage("./assets/player_32_64.png");
+    assets['player'] = loadImage("./assets/Proto-front2.png");
     assets['block']  = loadImage("./assets/block_32_32.png");
     assets['map']  = loadImage("./assets/background_1024_768.png");
 }
@@ -26,31 +26,31 @@ function setup() {
         'id': 'Block1',
         'name': 'Block',
         'blockX': 320,
-        'blockY': 320,
+        'blockY': 600,
     });
     objectManager.createObject({
         'id': 'Block2',
         'name': 'Block',
         'blockX': 288,
-        'blockY': 320,
+        'blockY': 600,
     });
     objectManager.createObject({
         'id': 'Block3',
         'name': 'Block',
         'blockX': 256,
-        'blockY': 320,
+        'blockY': 600,
     });
     objectManager.createObject({
         'id': 'Block4',
         'name': 'Block',
         'blockX': 224,
-        'blockY': 320,
+        'blockY': 600,
     });
     objectManager.createObject({
         'id': 'Block5',
         'name': 'Block',
         'blockX': 192,
-        'blockY': 320,
+        'blockY': 600,
     });
 
     objectManager.createObject({
@@ -68,7 +68,11 @@ function setup() {
 }
 
 function draw() {
-    //objectManager.callFunction('draw');
+    if ( !objectManager.data['drawNeeded'] ) return;
+
+    objectManager.callFunction('draw');
+
+    objectManager.data['drawNeeded'] = false;
 }
 
 function windowResized() {
@@ -105,8 +109,4 @@ function gameInterval() {
     if (!objectManager) return;
 
     objectManager.callFunction('move');
-    if ( objectManager.data['drawNeeded'] ) {
-        objectManager.callFunction('draw');
-        objectManager.data['drawNeeded'] = false;
-    }
 }

@@ -93,15 +93,35 @@ collision.checkCollision({
     'objectID': 123,
 });
 
+collision.checkCollision({
+    'objectID': 123,
+    'collisionObjectA': {
+        # object data of player for example
+    },
+    'collisionCheckNames': {
+        'Block': 1
+    },
+    'triggerEvent': false
+});
+
 */
 
 Collision.prototype.checkCollision = function(params) {
     var collisionDataA = this.getCollisionData({
         'objectID': params['objectID'],
     });
-    var collisionObjectA = objectManager.getObject(collisionDataA['objectID']);
+
+    var collisionObjectA;
+    if ( params.collisionObjectA ) {
+       collisionObjectA = params.collisionObjectA;
+    }
+    else {
+       collisionObjectA = objectManager.getObject(collisionDataA['objectID']).data;
+    }
+
     if ( !collisionDataA ) return;
 
+    var collided;
     for ( var objectIndexB = 0; objectIndexB < this.data['objectsActive'].length; objectIndexB++ ) {
         var objectIDB = this.data['objectsActive'][objectIndexB];
 
@@ -112,24 +132,28 @@ Collision.prototype.checkCollision = function(params) {
         });
         if ( !collisionDataB ) continue;
 
-        var collisionObjectB = objectManager.getObject(collisionDataB['objectID']);
+        var collisionObjectB = objectManager.getObject(collisionDataB['objectID']).data;
         if ( !collisionObjectB ) continue;
 
+        if ( params.collisionCheckNames ) {
+            if ( !params.collisionCheckNames[ collisionObjectB['name'] ] ) continue;
+        }
+
         var rectA = {
-            x:       collisionObjectA.data[ collisionDataA['objectXKey'] ],
-            xCenter: collisionObjectA.data[ collisionDataA['objectXKey'] ] + ( collisionObjectA.data[ collisionDataA['objectWidthKey'] ] / 2),
-            y:       collisionObjectA.data[ collisionDataA['objectYKey'] ],
-            yCenter: collisionObjectA.data[ collisionDataA['objectYKey'] ] + ( collisionObjectA.data[ collisionDataA['objectHeightKey'] ] / 2),
-            w:       collisionObjectA.data[ collisionDataA['objectWidthKey'] ],
-            h:       collisionObjectA.data[ collisionDataA['objectHeightKey'] ]
+            x:       collisionObjectA[ collisionDataA['objectXKey'] ],
+            xCenter: collisionObjectA[ collisionDataA['objectXKey'] ] + ( collisionObjectA[ collisionDataA['objectWidthKey'] ] / 2),
+            y:       collisionObjectA[ collisionDataA['objectYKey'] ],
+            yCenter: collisionObjectA[ collisionDataA['objectYKey'] ] + ( collisionObjectA[ collisionDataA['objectHeightKey'] ] / 2),
+            w:       collisionObjectA[ collisionDataA['objectWidthKey'] ],
+            h:       collisionObjectA[ collisionDataA['objectHeightKey'] ]
         };
         var rectB = {
-            x:       collisionObjectB.data[ collisionDataB['objectXKey'] ],
-            xCenter: collisionObjectB.data[ collisionDataB['objectXKey'] ] + ( collisionObjectB.data[ collisionDataB['objectWidthKey'] ] / 2),
-            y:       collisionObjectB.data[ collisionDataB['objectYKey'] ],
-            yCenter: collisionObjectB.data[ collisionDataB['objectYKey'] ] + ( collisionObjectB.data[ collisionDataB['objectHeightKey'] ] / 2),
-            w:       collisionObjectB.data[ collisionDataB['objectWidthKey'] ],
-            h:       collisionObjectB.data[ collisionDataB['objectHeightKey'] ]
+            x:       collisionObjectB[ collisionDataB['objectXKey'] ],
+            xCenter: collisionObjectB[ collisionDataB['objectXKey'] ] + ( collisionObjectB[ collisionDataB['objectWidthKey'] ] / 2),
+            y:       collisionObjectB[ collisionDataB['objectYKey'] ],
+            yCenter: collisionObjectB[ collisionDataB['objectYKey'] ] + ( collisionObjectB[ collisionDataB['objectHeightKey'] ] / 2),
+            w:       collisionObjectB[ collisionDataB['objectWidthKey'] ],
+            h:       collisionObjectB[ collisionDataB['objectHeightKey'] ]
         };
 
         var collisionFound = false;
@@ -146,16 +170,25 @@ Collision.prototype.checkCollision = function(params) {
 
         if (!collisionFound) continue;
 
-        objectManager.callFunctionObject(collisionDataA['objectID'], 'eventCollisionCheckCollision', {
-            collisionObject: collisionObjectB,
-            distance: distance,
-        });
-        objectManager.callFunctionObject(collisionDataB['objectID'], 'eventCollisionCheckCollision', {
-            collisionObject: collisionObjectA,
-            distance: distance,
-        });
+        if ( params.triggerEvent !== false ) {
+            objectManager.callFunctionObject(collisionDataA['objectID'], 'eventCollisionCheckCollision', {
+                collisionObject: collisionObjectB,
+                distance: distance,
+            });
+            objectManager.callFunctionObject(collisionDataB['objectID'], 'eventCollisionCheckCollision', {
+                collisionObject: collisionObjectA,
+                distance: distance,
+            });
+        }
+
+        collided = {
+            'distance': distance,
+            'collisionObject': objectManager.getObject(collisionDataB['objectID']),
+            'rect': rectB,
+        };
     }
 
+    return collided;
 }
 
 /*

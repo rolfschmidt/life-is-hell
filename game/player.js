@@ -1,12 +1,12 @@
 Player.DEFAULTS = {
     'playerX':      200,
     'playerY':      200,
-    'playerWidth':  32,
-    'playerHeight': 64,
+    'playerWidth':  48,
+    'playerHeight': 80,
     'playerSpeed':  6,
     'playerDead':   false,
     'directionX':   0,
-    'directionY':   0,
+    'directionY':   1,
     'playerHealth':   100,
 };
 Player.STATICS = {
@@ -39,7 +39,7 @@ Player.prototype.draw = function() {
         image(assets['playerDeath'], this.data['playerX'], this.data['playerY']);
     }
     else {
-        image(assets['player'], this.data['playerX'], this.data['playerY']);
+        image(assets['player'], this.data['playerX'], this.data['playerY'], this.data['playerWidth'], this.data['playerHeight']);
     }
     // rect(this.data['playerX'], this.data['playerY'], this.data['playerWidth'], this.data['playerHeight']);
     pop();
@@ -48,7 +48,8 @@ Player.prototype.draw = function() {
 Player.prototype.move = function() {
     if ( this.data['playerDead'] ) return;
 
-    var map = objectManager.getObject('Map');
+    var map       = objectManager.getObject('Map');
+    var collision = objectManager.getObject('Collision');
 
     if (this.data['directionX']) {
 
@@ -66,8 +67,26 @@ Player.prototype.move = function() {
         // check that the player can go out the map to the top
         if ( (this.data['playerY'] + (this.data['directionY'] * this.data['playerSpeed'])) < 0 ) return;
 
-        objectManager.updateAttribute( this.data['id'], 'playerY', this.data['playerY'] + this.data['directionY'] * this.data['playerSpeed'] );
+        var playerFutureY       = this.data['playerY'] + this.data['directionY'] * this.data['playerSpeed'] * 4;
+        var playerFutureData = Object.assign({}, this.data, { 'playerY': playerFutureY } );
+
+        var playerBlockCollision = collision.checkCollision({
+            'objectID': this.data['id'],
+            'collisionObjectA': playerFutureData,
+            'collisionCheckNames': {
+                'Block': 1
+            },
+            'triggerEvent': false
+        });
+
+        if (playerBlockCollision !== undefined) {
+            objectManager.updateAttribute( this.data['id'], 'playerY', playerBlockCollision['rect'].y - this.data['playerHeight'] );
+        }
+        else {
+            objectManager.updateAttribute( this.data['id'], 'playerY', playerFutureY );
+        }
     }
+
 }
 
 Player.prototype.keyPressed = function(params) {
@@ -79,7 +98,7 @@ Player.prototype.keyPressed = function(params) {
             this.data['directionX'] = 1;
         break;
         case 87: // W
-            this.data['directionY'] = -1;
+            // this.data['directionY'] = -1;
         break;
         case 83: // S
             this.data['directionY'] = 1;
@@ -101,11 +120,11 @@ Player.prototype.keyReleased = function(params) {
         break;
         case 87: // W
             if ( this.data['directionY'] != -1 ) break;
-            this.data['directionY'] = 0;
+            // this.data['directionY'] = 0;
         break;
         case 83: // S
             if ( this.data['directionY'] != 1 ) break;
-            this.data['directionY'] = 0;
+            // this.data['directionY'] = 0;
         break;
     }
 
