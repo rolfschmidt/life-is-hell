@@ -14,15 +14,4 @@ var config = {
     scene: [SceneGlobal, SceneIntro, SceneLevel1, SceneLevel1Boss]
 };
 
-var player;
-var stars;
-var traps;
-var bombs;
-var platforms;
-var cursors;
-var score = 0;
-var gameOver = false;
-var scoreText;
-var camera;
-
 var game = new Phaser.Game(config);
