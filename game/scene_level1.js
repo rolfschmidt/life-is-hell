@@ -12,9 +12,20 @@ class SceneLevel1 extends Phaser.Scene {
         this.load.image('level1_star', './assets/star.png');
         this.load.image('level1_bomb', './assets/bomb.png');
         this.load.spritesheet('level1_dude', './assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.audio('level1_music', './sounds/level1.mp3');
     }
 
     create() {
+        this.level1Music = this.sound.add('level1_music', {
+            mute: (config.devMode ? true : false),
+            volume: 0.1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        });
+        this.level1Music.play();
 
         //  A simple background for our game
         this.add.image(512, 384, 'level1_sky');
