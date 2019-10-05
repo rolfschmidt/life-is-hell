@@ -1,0 +1,16 @@
+{
+  "frames": {
+    "walk_left": 4,
+    "jump_left": 1,
+    "punch_left": 1,
+    "idle_left": 2,
+    "walk_right": 4,
+    "jump_right": 1,
+    "punch_right": 1,
+    "idle_right": 2
+  },
+  "images": [
+    "stand_left",
+    "stand_right"
+  ]
+}

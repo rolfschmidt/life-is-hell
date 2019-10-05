@@ -68,7 +68,7 @@ class SceneLevel1 extends Phaser.Scene {
         bossDoor.body.moves = false;
 
         // The player and its settings
-        player = this.physics.add.sprite(100, 450, 'level1_dude');
+        player = this.physics.add.sprite(100, 450, 'sprites', 'stand_right');
 
         //  Player physics properties. Give the little guy a slight bounce.
         player.setBounce(0.2);
@@ -84,27 +84,6 @@ class SceneLevel1 extends Phaser.Scene {
         player.store.jumpVelocityY = 0;
         player.store.jumpCount     = 2;
         player.store.jumpPossible  = true;
-
-        //  Our player animations, turning, walking left and walking right.
-        this.anims.create({
-            key: 'left',
-            frames: this.anims.generateFrameNumbers('level1_dude', { start: 0, end: 3 }),
-            frameRate: 10,
-            repeat: -1
-        });
-
-        this.anims.create({
-            key: 'turn',
-            frames: [ { key: 'level1_dude', frame: 4 } ],
-            frameRate: 20
-        });
-
-        this.anims.create({
-            key: 'right',
-            frames: this.anims.generateFrameNumbers('level1_dude', { start: 5, end: 8 }),
-            frameRate: 10,
-            repeat: -1
-        });
 
         //  Input Events
         cursors     = this.input.keyboard.createCursorKeys();
@@ -184,7 +163,8 @@ class SceneLevel1 extends Phaser.Scene {
             }
 
             player.setVelocityX(-560);
-            player.anims.play('left', true);
+            player.lastDirection = 'left';
+            player.anims.play('walk_left', true);
         }
         else if (cursors.right.isDown || cursors.D.isDown) {
             if (player.godMode) {
@@ -192,12 +172,13 @@ class SceneLevel1 extends Phaser.Scene {
             }
 
             player.setVelocityX(560);
-            player.anims.play('right', true);
+            player.lastDirection = 'right';
+            player.anims.play('walk_right', true);
         }
         else {
             player.setVelocityX(0);
 
-            player.anims.play('turn');
+            player.anims.play('idle_' + player.lastDirection, true);
         }
 
         if ( player.godMode ) {
