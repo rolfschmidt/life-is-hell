@@ -58,7 +58,9 @@ function create ()
 
     //  Player physics properties. Give the little guy a slight bounce.
     player.setBounce(0.2);
-    player.setCollideWorldBounds(true);
+
+    // disable bounds because we want to loop the background
+    player.setCollideWorldBounds(false);
 
     //  Our player animations, turning, walking left and walking right.
     this.anims.create({
@@ -112,6 +114,12 @@ function create ()
     this.physics.add.overlap(player, stars, collectStar, null, this);
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
+
+    // add camera to follow the player
+    var camera = this.cameras.main;
+    camera.useBounds = true;
+    camera.setBounds(0, 0, 4096, 768, false);
+    camera.startFollow(player);
 }
 
 function update ()
