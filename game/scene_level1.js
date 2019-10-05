@@ -70,6 +70,8 @@ class SceneLevel1 extends Phaser.Scene {
         // The player and its settings
         player = this.physics.add.sprite(100, 450, 'sprites', 'stand_right');
 
+        player.lastDirection = 'right';
+
         //  Player physics properties. Give the little guy a slight bounce.
         player.setBounce(0.2);
 
