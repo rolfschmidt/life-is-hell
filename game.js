@@ -96,6 +96,10 @@ function create ()
 
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
+    cursors.W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    cursors.A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    cursors.S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    cursors.D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
     //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     stars = this.physics.add.group({
@@ -140,13 +144,13 @@ function update ()
         return;
     }
 
-    if (cursors.left.isDown)
+    if (cursors.left.isDown || cursors.A.isDown)
     {
         player.setVelocityX(-560);
 
         player.anims.play('left', true);
     }
-    else if (cursors.right.isDown)
+    else if (cursors.right.isDown || cursors.D.isDown)
     {
         player.setVelocityX(560);
 
@@ -166,7 +170,7 @@ function update ()
         player.store.jumpPossible  = true;
     }
 
-    if (cursors.up.isDown && player.store.jumpCount > 0 && player.store.jumpPossible)
+    if ((cursors.up.isDown || cursors.W.isDown) && player.store.jumpCount > 0 && player.store.jumpPossible)
     {
         if (player.store.jumpCount == 2) {
             player.store.velocityY = Math.min(player.store.jumpVelocityY, -1000);
@@ -190,7 +194,7 @@ function update ()
         player.store.jumpCount = 2;
         player.store.jumpPossible = true;
     }
-    if ( !cursors.up.isDown ) {
+    if ( !cursors.up.isDown && !cursors.W.isDown ) {
         player.store.jumpPossible = true;
     }
 
