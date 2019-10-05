@@ -4,11 +4,10 @@ class SceneGlobal extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('sky', './assets/background_1024_768.png');
         console.log('preload global');
     }
 
     create() {
-        this.scene.start("SceneLevel1");
+        this.scene.start("SceneIntro");
     }
 }

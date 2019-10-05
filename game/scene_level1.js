@@ -4,40 +4,36 @@ class SceneLevel1 extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('ground', './assets/platform.png');
-        this.load.image('star', './assets/star.png');
-        this.load.image('bomb', './assets/bomb.png');
-        this.load.spritesheet('dude', './assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.image('level1_sky', './assets/background_scene_level1_1024_768.png');
+        this.load.image('level1_ground', './assets/platform.png');
+        this.load.image('level1_star', './assets/star.png');
+        this.load.image('level1_bomb', './assets/bomb.png');
+        this.load.spritesheet('level1_dude', './assets/dude.png', { frameWidth: 32, frameHeight: 48 });
     }
 
     create() {
 
         //  A simple background for our game
-        this.add.image(512, 384, 'sky');
+        this.add.image(512, 384, 'level1_sky');
         for (var backgroundX = 512; backgroundX < config.physics.arcade.width + 1024; backgroundX = backgroundX + 1024) {
-            this.add.image(backgroundX - 512, 384, 'sky');
+            this.add.image(backgroundX - 512, 384, 'level1_sky');
         }
 
         //  The platforms group contains the ground and the 2 ledges we can jump on
         platforms = this.physics.add.staticGroup();
 
-        //  Here we create the ground.
-        //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-        platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-
-        //  Now let's create some ledges
-        platforms.create(600, 400, 'ground');
-        platforms.create(50, 250, 'ground');
-        platforms.create(750, 220, 'ground');
+        platforms.create(600, 400, 'level1_ground');
+        platforms.create(50, 250, 'level1_ground');
+        platforms.create(750, 220, 'level1_ground');
 
         for (var groundX = 200; groundX < config.physics.arcade.width; groundX = groundX + 200) {
-            platforms.create(groundX, 568, 'ground');
+            platforms.create(groundX, 568, 'level1_ground');
 
             groundX += 200;
         }
 
         // The player and its settings
-        player = this.physics.add.sprite(100, 450, 'dude');
+        player = this.physics.add.sprite(100, 450, 'level1_dude');
 
         //  Player physics properties. Give the little guy a slight bounce.
         player.setBounce(0.2);
@@ -48,20 +44,20 @@ class SceneLevel1 extends Phaser.Scene {
         //  Our player animations, turning, walking left and walking right.
         this.anims.create({
             key: 'left',
-            frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers('level1_dude', { start: 0, end: 3 }),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'turn',
-            frames: [ { key: 'dude', frame: 4 } ],
+            frames: [ { key: 'level1_dude', frame: 4 } ],
             frameRate: 20
         });
 
         this.anims.create({
             key: 'right',
-            frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+            frames: this.anims.generateFrameNumbers('level1_dude', { start: 5, end: 8 }),
             frameRate: 10,
             repeat: -1
         });
@@ -75,7 +71,7 @@ class SceneLevel1 extends Phaser.Scene {
 
         //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
         stars = this.physics.add.group({
-            key: 'star',
+            key: 'level1_star',
             repeat: 11,
             setXY: { x: 12, y: 0, stepX: 70 }
         });
@@ -190,7 +186,7 @@ class SceneLevel1 extends Phaser.Scene {
 
             var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
-            var bomb = bombs.create(x, 16, 'bomb');
+            var bomb = bombs.create(x, 16, 'level1_bomb');
             bomb.setBounce(1);
             bomb.setCollideWorldBounds(true);
             bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
