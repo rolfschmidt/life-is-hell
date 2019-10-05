@@ -123,13 +123,13 @@ function update ()
 
     if (cursors.left.isDown)
     {
-        player.setVelocityX(-160);
+        player.setVelocityX(-560);
 
         player.anims.play('left', true);
     }
     else if (cursors.right.isDown)
     {
-        player.setVelocityX(160);
+        player.setVelocityX(560);
 
         player.anims.play('right', true);
     }
@@ -139,11 +139,43 @@ function update ()
 
         player.anims.play('turn');
     }
-
-    if (cursors.up.isDown && player.body.touching.down)
-    {
-        player.setVelocityY(-330);
+    if ( typeof player.store !== 'object' ) {
+        player.store               = {};
+        player.store.velocityY     = 0;
+        player.store.jumpVelocityY = 0;
+        player.store.jumpCount     = 2;
+        player.store.jumpPossible  = true;
     }
+
+    if (cursors.up.isDown && player.store.jumpCount > 0 && player.store.jumpPossible)
+    {
+        if (player.store.jumpCount == 2) {
+            player.store.velocityY = Math.min(player.store.jumpVelocityY, -1000);
+            player.store.jumpVelocityY -= 1000;
+        }
+        else {
+            player.store.velocityY = Math.min(player.store.jumpVelocityY, -1500);
+            player.store.jumpVelocityY -= 1500;
+        }
+        player.store.jumpCount -= 1;
+        player.store.jumpPossible = false;
+    }
+    if ( !player.body.touching.down ) {
+        player.store.velocityY += 75;
+        player.store.jumpVelocityY += 75;
+        if ( player.store.jumpVelocityY > 0 ) {
+            player.store.jumpVelocityY = 0;
+        }
+    }
+    if ( player.body.touching.down ) {
+        player.store.jumpCount = 2;
+        player.store.jumpPossible = true;
+    }
+    if ( !cursors.up.isDown ) {
+        player.store.jumpPossible = true;
+    }
+
+    player.setVelocityY(player.store.velocityY);
 }
 
 function collectStar (player, star)
