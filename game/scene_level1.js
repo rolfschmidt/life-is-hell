@@ -41,6 +41,15 @@ class SceneLevel1 extends Phaser.Scene {
         // disable bounds because we want to loop the background
         player.setCollideWorldBounds(true);
 
+        // player default values
+        player.godMode             = false;
+        player.godModeMoveSpeed    = 3;
+        player.store               = {};
+        player.store.velocityY     = 0;
+        player.store.jumpVelocityY = 0;
+        player.store.jumpCount     = 2;
+        player.store.jumpPossible  = true;
+
         //  Our player animations, turning, walking left and walking right.
         this.anims.create({
             key: 'left',
@@ -63,11 +72,13 @@ class SceneLevel1 extends Phaser.Scene {
         });
 
         //  Input Events
-        cursors = this.input.keyboard.createCursorKeys();
-        cursors.W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        cursors.A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        cursors.S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        cursors.D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        cursors     = this.input.keyboard.createCursorKeys();
+        cursors.W   = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        cursors.A   = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        cursors.S   = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        cursors.D   = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        cursors.F9  = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F9);
+        cursors.F10 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F10);
 
         //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
         stars = this.physics.add.group({
@@ -106,66 +117,82 @@ class SceneLevel1 extends Phaser.Scene {
     }
 
     update () {
-        if (gameOver)
-        {
+        if (gameOver) {
             return;
         }
 
-        if (cursors.left.isDown || cursors.A.isDown)
-        {
-            player.setVelocityX(-560);
+        // godmode on or off
+        if (cursors.F9.isDown) {
+            player.godMode    = true;
+            player.body.moves = false;
+        }
+        if (cursors.F10.isDown) {
+            player.godMode    = false;
+            player.body.moves = true;
+        }
 
+        if (cursors.left.isDown || cursors.A.isDown) {
+            if (player.godMode) {
+                player.x -= player.godModeMoveSpeed * 5;
+            }
+
+            player.setVelocityX(-560);
             player.anims.play('left', true);
         }
-        else if (cursors.right.isDown || cursors.D.isDown)
-        {
-            player.setVelocityX(560);
+        else if (cursors.right.isDown || cursors.D.isDown) {
+            if (player.godMode) {
+                player.x += player.godModeMoveSpeed * 5;
+            }
 
+            player.setVelocityX(560);
             player.anims.play('right', true);
         }
-        else
-        {
+        else {
             player.setVelocityX(0);
 
             player.anims.play('turn');
         }
-        if ( typeof player.store !== 'object' ) {
-            player.store               = {};
-            player.store.velocityY     = 0;
-            player.store.jumpVelocityY = 0;
-            player.store.jumpCount     = 2;
-            player.store.jumpPossible  = true;
+
+        if ( player.godMode ) {
+            if (cursors.up.isDown || cursors.W.isDown) {
+                player.y -= player.godModeMoveSpeed * 5;
+            }
+            if (cursors.down.isDown || cursors.S.isDown) {
+                player.y += player.godModeMoveSpeed * 5;
+            }
+        }
+        else {
+
+            if ((cursors.up.isDown || cursors.W.isDown) && player.store.jumpCount > 0 && player.store.jumpPossible) {
+                if (player.store.jumpCount == 2) {
+                    player.store.velocityY = Math.min(player.store.jumpVelocityY, -1000);
+                    player.store.jumpVelocityY -= 1000;
+                }
+                else {
+                    player.store.velocityY = Math.min(player.store.jumpVelocityY, -1500);
+                    player.store.jumpVelocityY -= 1500;
+                }
+                player.store.jumpCount -= 1;
+                player.store.jumpPossible = false;
+            }
+            if ( !player.body.touching.down ) {
+                player.store.velocityY += 75;
+                player.store.jumpVelocityY += 75;
+                if ( player.store.jumpVelocityY > 0 ) {
+                    player.store.jumpVelocityY = 0;
+                }
+            }
+            if ( player.body.touching.down ) {
+                player.store.jumpCount = 2;
+                player.store.jumpPossible = true;
+            }
+            if ( !cursors.up.isDown && !cursors.W.isDown ) {
+                player.store.jumpPossible = true;
+            }
+
+            player.setVelocityY(player.store.velocityY);
         }
 
-        if ((cursors.up.isDown || cursors.W.isDown) && player.store.jumpCount > 0 && player.store.jumpPossible)
-        {
-            if (player.store.jumpCount == 2) {
-                player.store.velocityY = Math.min(player.store.jumpVelocityY, -1000);
-                player.store.jumpVelocityY -= 1000;
-            }
-            else {
-                player.store.velocityY = Math.min(player.store.jumpVelocityY, -1500);
-                player.store.jumpVelocityY -= 1500;
-            }
-            player.store.jumpCount -= 1;
-            player.store.jumpPossible = false;
-        }
-        if ( !player.body.touching.down ) {
-            player.store.velocityY += 75;
-            player.store.jumpVelocityY += 75;
-            if ( player.store.jumpVelocityY > 0 ) {
-                player.store.jumpVelocityY = 0;
-            }
-        }
-        if ( player.body.touching.down ) {
-            player.store.jumpCount = 2;
-            player.store.jumpPossible = true;
-        }
-        if ( !cursors.up.isDown && !cursors.W.isDown ) {
-            player.store.jumpPossible = true;
-        }
-
-        player.setVelocityY(player.store.velocityY);
     }
 
     collectStar (player, star) {
@@ -173,6 +200,7 @@ class SceneLevel1 extends Phaser.Scene {
 
         //  Add and update the score
         score += 10;
+        if (player.godMode) score += 10000;
         scoreText.setText('Score: ' + score);
 
         if (stars.countActive(true) === 0)
@@ -195,6 +223,8 @@ class SceneLevel1 extends Phaser.Scene {
     }
 
     hitBomb (player, bomb) {
+        if (player.godMode) return;
+
         this.physics.pause();
 
         player.setTint(0xff0000);
