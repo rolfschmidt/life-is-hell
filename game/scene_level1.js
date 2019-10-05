@@ -271,8 +271,8 @@ class SceneLevel1 extends Phaser.Scene {
 
     hitTrap (player, trap) {
         if (player.godMode) return;
-        if ( trap.x > player.x && trap.x - player.x > trap.width * 0.8 ) return;
-        if ( player.x > trap.x && player.x - trap.x > trap.width * 0.8 ) return;
+        if ( trap.x > player.x && trap.x - player.x > trap.width * 0.9 ) return;
+        if ( player.x > trap.x && player.x - trap.x > trap.width * 0.9 ) return;
 
         this.physics.pause();
 
