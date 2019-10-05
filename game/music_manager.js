@@ -1,7 +1,7 @@
 function MusicManager() {}
 
 MusicManager.prototype.preload = function(scene) {
-    scene.load.audio('level1_music', './sounds/level1.mp3');
+    scene.load.audio('level1_music', './sounds/level1_32kbps.mp3');
 }
 
 MusicManager.prototype.create = function(scene) {
