@@ -5,6 +5,7 @@ class SceneLevel1 extends Phaser.Scene {
 
     preload() {
         this.load.image('level1_sky', './assets/background_scene_level1_1024_768.png');
+        this.load.image('level1_block_lava', './assets/block_lava_32_32.png');
         this.load.image('level1_block_kill', './assets/block_kill_32_32.png');
         this.load.image('level1_block_middle', './assets/block_middle_32_32.png');
         this.load.image('level1_block_left', './assets/block_left_32_32.png');
@@ -129,7 +130,11 @@ class SceneLevel1 extends Phaser.Scene {
         });
 
         traps = this.physics.add.staticGroup();
-        var trap = traps.create(940, 567, 'level1_block_kill');
+        traps.create(940, 567, 'level1_block_kill');
+        traps.create(940 + 32, 567, 'level1_block_lava');
+        traps.create(940 + 64, 567, 'level1_block_lava');
+        traps.create(940 + 96, 567, 'level1_block_lava');
+        traps.create(940 + 128, 567, 'level1_block_kill');
 
         bombs = this.physics.add.group();
 
@@ -266,7 +271,8 @@ class SceneLevel1 extends Phaser.Scene {
 
     hitTrap (player, trap) {
         if (player.godMode) return;
-        if ( trap.x - player.x > trap.width * 0.6 ) return;
+        if ( trap.x > player.x && trap.x - player.x > trap.width * 0.8 ) return;
+        if ( player.x > trap.x && player.x - trap.x > trap.width * 0.8 ) return;
 
         this.physics.pause();
 
