@@ -19,16 +19,22 @@ ControlManager.prototype.create = function(scene) {
 }
 
 ControlManager.prototype.update = function(scene) {
+    var leftPressed  = scene.cursors.left.isDown || scene.cursors.A.isDown;
+    var rightPressed = scene.cursors.right.isDown || scene.cursors.D.isDown;
+    var upPressed    = scene.cursors.up.isDown || scene.cursors.W.isDown;
+    var downPressed  = scene.cursors.down.isDown || scene.cursors.S.isDown;
+    var F09Pressed   = scene.cursors.F9.isDown;
+    var F10Pressed   = scene.cursors.F10.isDown;
 
    // godmode on or off
-    if (scene.cursors.F9.isDown) {
+    if (F09Pressed) {
         scene.player.godMode    = true;
         scene.player.body.moves = false;
         scene.cameras.main.zoom = scene.player.godModeZoom;
         scene.scoreText.x = scene.cameras.main.centerX * 0.01;
         scene.scoreText.y = scene.cameras.main.centerY * 0.01;
     }
-    if (scene.cursors.F10.isDown) {
+    if (F10Pressed) {
         scene.player.godMode    = false;
         scene.player.body.moves = true;
         scene.cameras.main.zoom = scene.cameras.main.zoomGameplay;
@@ -36,7 +42,7 @@ ControlManager.prototype.update = function(scene) {
         scene.scoreText.y = scene.cameras.main.centerY * (2 - scene.cameras.main.zoom);
     }
 
-    if (scene.cursors.left.isDown || scene.cursors.A.isDown) {
+    if (leftPressed) {
         if (scene.player.godMode) {
             scene.player.x -= scene.player.godModeMoveSpeed * 5;
         }
@@ -45,7 +51,7 @@ ControlManager.prototype.update = function(scene) {
         scene.player.lastDirection = 'left';
         scene.player.anims.play('walk_left', true);
     }
-    else if (scene.cursors.right.isDown || scene.cursors.D.isDown) {
+    else if (rightPressed) {
         if (scene.player.godMode) {
             scene.player.x += scene.player.godModeMoveSpeed * 5;
         }
@@ -61,16 +67,16 @@ ControlManager.prototype.update = function(scene) {
     }
 
     if ( scene.player.godMode ) {
-        if (scene.cursors.up.isDown || scene.cursors.W.isDown) {
+        if (upPressed) {
             scene.player.y -= scene.player.godModeMoveSpeed * 5;
         }
-        if (scene.cursors.down.isDown || scene.cursors.S.isDown) {
+        if (downPressed) {
             scene.player.y += scene.player.godModeMoveSpeed * 5;
         }
     }
     else {
 
-        if ((scene.cursors.up.isDown || scene.cursors.W.isDown) && scene.player.store.jumpCount > 0 && scene.player.store.jumpPossible) {
+        if (upPressed && scene.player.store.jumpCount > 0 && scene.player.store.jumpPossible) {
             if (scene.player.store.jumpCount == 2) {
                 scene.player.store.velocityY = Math.min(scene.player.store.jumpVelocityY, -1000);
                 scene.player.store.jumpVelocityY -= 1000;
@@ -93,7 +99,7 @@ ControlManager.prototype.update = function(scene) {
             scene.player.store.jumpCount = 2;
             scene.player.store.jumpPossible = true;
         }
-        if ( !scene.cursors.up.isDown && !scene.cursors.W.isDown ) {
+        if ( !upPressed ) {
             scene.player.store.jumpPossible = true;
         }
 
