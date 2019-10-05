@@ -36,10 +36,23 @@ function preload ()
     this.load.image('star', './assets/star.png');
     this.load.image('bomb', './assets/bomb.png');
     this.load.spritesheet('dude', './assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.audio('intro', './sounds/intro.mp3');
 }
 
 function create ()
 {
+    // load intro music
+    var music = this.sound.add('intro', {
+        mute: true,
+        volume: 0.1,
+        rate: 1,
+        detune: 0,
+        seek: 0,
+        loop: true,
+        delay: 0
+    });
+    music.play();
+
     //  A simple background for our game
     this.add.image(512, 384, 'sky');
     for (var backgroundX = 512; backgroundX < config.physics.arcade.width + 1024; backgroundX = backgroundX + 1024) {
