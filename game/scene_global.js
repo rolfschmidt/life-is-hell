@@ -28,12 +28,8 @@ class SceneGlobal extends Phaser.Scene {
 
         for (var frame_name in sprite_manifest['frames']) {
 
-            // TODO
-            // frame_prefix = ''
             var frame_start  = 1
             var frame_end    = sprite_manifest['frames'][frame_name]
-
-            console.log('frame_name', frame_name);
 
             this.anims.create({
                 key: frame_name,
