@@ -25,6 +25,7 @@ var cursors;
 var score = 0;
 var gameOver = false;
 var scoreText;
+var camera;
 
 var game = new Phaser.Game(config);
 
@@ -40,7 +41,10 @@ function preload ()
 function create ()
 {
     //  A simple background for our game
-    var background = this.add.image(512, 384, 'sky');
+    this.add.image(512, 384, 'sky');
+    for (var backgroundX = 512; backgroundX < config.physics.arcade.width; backgroundX = backgroundX + 1024) {
+        this.add.image(backgroundX - 512, 384, 'sky');
+    }
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = this.physics.add.staticGroup();
@@ -123,7 +127,7 @@ function create ()
     this.physics.add.collider(player, bombs, hitBomb, null, this);
 
     // add camera to follow the player
-    var camera = this.cameras.main;
+    camera = this.cameras.main;
     camera.useBounds = true;
     camera.setBounds(0, 0, 4096, 768, false);
     camera.startFollow(player);
