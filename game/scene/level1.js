@@ -19,6 +19,7 @@ class SceneLevel1 extends Phaser.Scene {
         GlobalScene.CollisionManager.preload(this);
         GlobalScene.CameraManager.preload(this);
         GlobalScene.ScoreManager.preload(this);
+        GlobalScene.LevelEditorManager.preload(this);
     }
 
     create() {
@@ -37,6 +38,7 @@ class SceneLevel1 extends Phaser.Scene {
         GlobalScene.CollisionManager.create(this);
         GlobalScene.CameraManager.create(this);
         GlobalScene.ScoreManager.create(this);
+        GlobalScene.LevelEditorManager.create(this);
     }
 
     update () {
@@ -59,5 +61,6 @@ class SceneLevel1 extends Phaser.Scene {
         GlobalScene.CollisionManager.update(this);
         GlobalScene.CameraManager.update(this);
         GlobalScene.ScoreManager.update(this);
+        GlobalScene.LevelEditorManager.update(this);
     }
 }
