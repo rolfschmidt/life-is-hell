@@ -154,10 +154,12 @@ class SceneLevel1 extends Phaser.Scene {
         if (cursors.F9.isDown) {
             player.godMode    = true;
             player.body.moves = false;
+            camera.zoom = 1;
         }
         if (cursors.F10.isDown) {
             player.godMode    = false;
             player.body.moves = true;
+            camera.zoom = 1.6;
         }
 
         if (cursors.left.isDown || cursors.A.isDown) {
