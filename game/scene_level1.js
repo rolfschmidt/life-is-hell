@@ -81,6 +81,7 @@ class SceneLevel1 extends Phaser.Scene {
         // player default values
         player.godMode             = false;
         player.godModeMoveSpeed    = 3;
+        player.godModeZoom         = 1;
         player.store               = {};
         player.store.velocityY     = 0;
         player.store.jumpVelocityY = 0;
@@ -139,7 +140,8 @@ class SceneLevel1 extends Phaser.Scene {
         camera.useBounds = true;
         camera.setBounds(0, 0, config.physics.arcade.width, 768, false);
         camera.startFollow(player);
-        camera.zoom = 1.6;
+        camera.zoom         = 1.6;
+        camera.zoomGameplay = 1.6;
 
         scoreText = this.add.text(camera.centerX * (2 - camera.zoom), camera.centerY * (2 - camera.zoom), 'score: 0', { fontSize: '32px', fill: '#000' });
         scoreText.setScrollFactor(0);
@@ -155,14 +157,14 @@ class SceneLevel1 extends Phaser.Scene {
         if (cursors.F9.isDown) {
             player.godMode    = true;
             player.body.moves = false;
-            camera.zoom = 1;
+            camera.zoom = player.godModeZoom;
             scoreText.x = camera.centerX * 0.01;
             scoreText.y = camera.centerY * 0.01;
         }
         if (cursors.F10.isDown) {
             player.godMode    = false;
             player.body.moves = true;
-            camera.zoom = 1.6;
+            camera.zoom = camera.zoomGameplay;
             scoreText.x = camera.centerX * (2 - camera.zoom);
             scoreText.y = camera.centerY * (2 - camera.zoom);
         }
