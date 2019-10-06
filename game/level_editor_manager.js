@@ -1,33 +1,19 @@
 function LevelEditorManager() {}
 
 LevelEditorManager.prototype.preload = function(scene) {
-    scene.load.image('level_editor_0', './assets/block_32_32.png');
-    scene.load.image('level_editor_0_active', './assets/block_32_32.png');
-    scene.load.image('level_editor_1', './assets/level_editor_1.png');
-    scene.load.image('level_editor_1_active', './assets/level_editor_1_active.png');
-    scene.load.image('level_editor_2', './assets/level_editor_2.png');
-    scene.load.image('level_editor_2_active', './assets/level_editor_2_active.png');
-    scene.load.image('level_editor_3', './assets/level_editor_3.png');
-    scene.load.image('level_editor_3_active', './assets/level_editor_3_active.png');
-    scene.load.image('level_editor_4', './assets/level_editor_4.png');
-    scene.load.image('level_editor_4_active', './assets/level_editor_4_active.png');
-    scene.load.image('level_editor_5', './assets/level_editor_5.png');
-    scene.load.image('level_editor_5_active', './assets/level_editor_5_active.png');
+
+    for (var i = 0; i < 10; i++) {
+        scene.load.image('level_editor_' + i, './assets/level_editor_' + i + '.png');
+        scene.load.image('level_editor_' + i + '_active', './assets/level_editor_' + i + '_active.png');
+    }
 }
 
 LevelEditorManager.prototype.create = function(scene) {
-    scene.levelEditorButton0 = scene.add.image(550, 716, 'level_editor_0');
-    scene.levelEditorButton0.setScrollFactor(0);
-    scene.levelEditorButton1 = scene.add.image(600, 716, 'level_editor_1');
-    scene.levelEditorButton1.setScrollFactor(0);
-    scene.levelEditorButton2 = scene.add.image(650, 716, 'level_editor_2');
-    scene.levelEditorButton2.setScrollFactor(0);
-    scene.levelEditorButton3 = scene.add.image(700, 716, 'level_editor_3');
-    scene.levelEditorButton3.setScrollFactor(0);
-    scene.levelEditorButton4 = scene.add.image(750, 716, 'level_editor_4');
-    scene.levelEditorButton4.setScrollFactor(0);
-    scene.levelEditorButton5 = scene.add.image(800, 716, 'level_editor_5');
-    scene.levelEditorButton5.setScrollFactor(0);
+
+    for (var i = 0; i < 10; i++) {
+        scene['levelEditorButton' + i] = scene.add.image(550 + (i * 50), 716, 'level_editor_' + i);
+        scene['levelEditorButton' + i].setScrollFactor(0);
+    }
 
     scene.levelEditorPlacement = scene.add.image(200, 200, 'level1_block_middle');
     scene.levelEditorPlacement.setScrollFactor(0);
@@ -41,11 +27,9 @@ LevelEditorManager.prototype.create = function(scene) {
 }
 
 LevelEditorManager.prototype.update = function(scene) {
-    scene.levelEditorButton1.visible   = scene.player.godMode ? true : false;
-    scene.levelEditorButton2.visible   = scene.player.godMode ? true : false;
-    scene.levelEditorButton3.visible   = scene.player.godMode ? true : false;
-    scene.levelEditorButton4.visible   = scene.player.godMode ? true : false;
-    scene.levelEditorButton5.visible   = scene.player.godMode ? true : false;
+    for (var i = 0; i < 10; i++) {
+        scene['levelEditorButton' + i].visible = scene.player.godMode ? true : false;
+    }
 
     this.KeyboardMap = [
         {
@@ -84,6 +68,18 @@ LevelEditorManager.prototype.update = function(scene) {
             'Texture': 'level1_boss_door',
             'SceneKey': 'bossDoors',
         },
+        {
+            'Key': 'SIX',
+        },
+        {
+            'Key': 'SEVEN',
+        },
+        {
+            'Key': 'EIGHT',
+        },
+        {
+            'Key': 'NINE',
+        },
     ];
 
     var activeKey;
@@ -99,8 +95,10 @@ LevelEditorManager.prototype.update = function(scene) {
     if (activeKey && activeKey != this.activatedKey) {
         var foundActive = false;
         for (var buttonIndex = 0; buttonIndex < this.KeyboardMap.length; buttonIndex++) {
-            var Key = this.KeyboardMap[buttonIndex];
+            var data = this.KeyboardMap[buttonIndex];
             var Key = this.KeyboardMap[buttonIndex]['Key'];
+
+            if (!data.Manager) continue;
 
             if ( scene.cursors[Key].isDown && !scene['levelEditorButton' + buttonIndex].pressed && !foundActive ) {
                 scene['levelEditorButton' + buttonIndex].setTexture('level_editor_' + buttonIndex + '_active');
@@ -120,13 +118,15 @@ LevelEditorManager.prototype.update = function(scene) {
 
     }
 
+    if ( activeKey && this.activatedKey && activeKey != this.activatedKey ) {
+        this.activatedKey = undefined;
+    }
+
     scene.levelEditorPlacement.visible = scene.player.godMode && this.activatedKey && this.activatedKey != 'BACK_SLASH' ? true : false;
     scene.levelEditorPlacement.x       = ( Math.floor( scene.input.mousePointer.x / scene.levelEditorPlacement.width ) * scene.levelEditorPlacement.width ) + ( scene.levelEditorPlacement.width / 2 );
     scene.levelEditorPlacement.saveX   = ( Math.floor( scene.input.mousePointer.worldX / scene.levelEditorPlacement.width ) * scene.levelEditorPlacement.width ) + ( scene.levelEditorPlacement.width / 2 );
     scene.levelEditorPlacement.y       = ( Math.floor( scene.input.mousePointer.worldY / scene.levelEditorPlacement.height ) * scene.levelEditorPlacement.height ) + ( scene.levelEditorPlacement.height / 2 );
     scene.levelEditorPlacement.saveY   = ( Math.floor( scene.input.mousePointer.y / scene.levelEditorPlacement.height ) * scene.levelEditorPlacement.height ) + ( scene.levelEditorPlacement.height / 2 );
-
-    // console.log('gameobjectdown', scene.levelEditorPlacement.x, scene.input.mousePointer);
 }
 
 LevelEditorManager.prototype.onClick = function(scene, pointer, gameObject) {
@@ -136,7 +136,6 @@ LevelEditorManager.prototype.onClick = function(scene, pointer, gameObject) {
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
 
     if ( this.activatedKey == 'BACK_SLASH' ) {
-        console.log('BACK_SLASH', pointer, gameObject);
         gameObject.destroy();
         this.copyScene2Clipboard(scene);
         return;
@@ -155,10 +154,6 @@ LevelEditorManager.prototype.copyScene2Clipboard = function(scene) {
 
         if ( !data['SceneKey'] ) continue;
 
-        // export[ this.KeyboardMap['SceneKey'] ] = [];
-
-        console.log(data['SceneKey'], scene[ data['SceneKey'] ]);
-
         var sceneData = scene[ data['SceneKey'] ].children.entries || [];
 
         exportData[ data['SceneKey'] ] = exportData[ data['SceneKey'] ] || [];
@@ -173,7 +168,6 @@ LevelEditorManager.prototype.copyScene2Clipboard = function(scene) {
         }
     }
 
-    console.log('export', exportData);
     this.copyToClipboard(JSON.stringify(exportData));
 }
 

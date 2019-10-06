@@ -16,6 +16,10 @@ ControlManager.prototype.create = function(scene) {
     scene.cursors.THREE      = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
     scene.cursors.FOUR       = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR);
     scene.cursors.FIVE       = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE);
+    scene.cursors.SIX        = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SIX);
+    scene.cursors.SEVEN      = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SEVEN);
+    scene.cursors.EIGHT      = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.EIGHT);
+    scene.cursors.NINE       = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NINE);
     scene.cursors.BACK_SLASH = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACK_SLASH);
     console.log('scene.input.keyboard', Phaser.Input.Keyboard.KeyCodes);
 }
