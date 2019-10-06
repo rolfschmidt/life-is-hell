@@ -9,6 +9,8 @@ class SceneLevel1Boss extends Phaser.Scene {
 
     create() {
 
+        return this.scene.start("SceneGameWin");
+
         //  A simple background for our game
         this.add.image(512, 384, 'level1_boss_sky');
 

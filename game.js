@@ -11,7 +11,7 @@ var config = {
             width: 20000
         }
     },
-    scene: [SceneGlobal, SceneIntro, SceneLevel1, SceneLevel1Boss, SceneGameOver]
+    scene: [SceneGlobal, SceneIntro, SceneLevel1, SceneLevel1Boss, SceneGameOver, SceneGameWin]
 };
 
 var game = new Phaser.Game(config);
