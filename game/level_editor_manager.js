@@ -113,8 +113,9 @@ LevelEditorManager.prototype.update = function(scene) {
                 this.activatedKey = Key;
 
                 scene.levelEditorPlacement.setTexture(this.KeyboardMap[buttonIndex]['Texture']);
-                scene.levelEditorPlacement.Manager = this.KeyboardMap[buttonIndex]['Manager'];
+                scene.levelEditorPlacement.Manager        = this.KeyboardMap[buttonIndex]['Manager'];
                 scene.levelEditorPlacement.ManagerTexture = this.KeyboardMap[buttonIndex]['Texture'];
+                scene.levelEditorPlacement.SceneKey       = this.KeyboardMap[buttonIndex]['SceneKey'];
             }
             else {
                 scene['levelEditorButton' + buttonIndex].setTexture('level_editor_' + buttonIndex);
@@ -147,6 +148,20 @@ LevelEditorManager.prototype.onClick = function(scene, pointer, gameObject) {
         return;
     }
 
+    // prevent double blocks at the same points
+    var sceneData = this.getSceneData(scene, scene.levelEditorPlacement.SceneKey) || [];
+    var blockFound;
+    for (var index = 0; index < sceneData.length; index++ ) {
+        var entry = sceneData[index];
+
+        if ( scene.levelEditorPlacement.saveX != entry.x ) continue;
+        if ( scene.levelEditorPlacement.saveY != entry.y ) continue;
+
+        blockFound = true;
+    }
+
+    if ( blockFound ) return;
+
     GlobalScene[scene.levelEditorPlacement.Manager].createBlock(scene, scene.levelEditorPlacement.saveX, scene.levelEditorPlacement.saveY, scene.levelEditorPlacement.ManagerTexture);
 
     this.copyScene2Clipboard(scene);
@@ -160,7 +175,7 @@ LevelEditorManager.prototype.copyScene2Clipboard = function(scene) {
 
         if ( !data['SceneKey'] ) continue;
 
-        var sceneData = scene[ data['SceneKey'] ].children.entries || [];
+        var sceneData = this.getSceneData(scene, data['SceneKey']) || [];
 
         exportData[ data['SceneKey'] ] = exportData[ data['SceneKey'] ] || [];
         for (var exportIndex = 0; exportIndex < sceneData.length; exportIndex++) {
@@ -198,4 +213,12 @@ LevelEditorManager.prototype.copyToClipboard = function(text) {
             document.body.removeChild(textarea);
         }
     }
+}
+
+LevelEditorManager.prototype.getSceneData = function(scene, key) {
+    if (!scene[key]) return;
+    if (!scene[key].children) return;
+    if (!scene[key].children.entries) return;
+
+    return scene[key].children.entries;
 }

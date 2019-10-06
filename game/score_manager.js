@@ -5,9 +5,21 @@ ScoreManager.prototype.preload = function(scene) {
 }
 
 ScoreManager.prototype.create = function(scene) {
-    scene.scoreText = scene.add.text(scene.cameras.main.centerX * (2 - scene.cameras.main.zoom), scene.cameras.main.centerY * (2 - scene.cameras.main.zoom), 'score: 0', { fontSize: '32px', fill: '#000' });
+    var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
+
+    scene.scoreText = scene.add.text(scene.cameras.main.centerX * (2 - scene.cameras.main.zoom), scene.cameras.main.centerY * (2 - scene.cameras.main.zoom), GlobalScene.ScoreManager.text(scene), { fontSize: '32px', fill: '#000' });
     scene.scoreText.setScrollFactor(0);
 }
 
 ScoreManager.prototype.update = function(scene) {
+}
+
+ScoreManager.prototype.text = function(scene) {
+    return 'score: ' + ( scene.scoreCount / 100 ) + ' x ❤️';
+}
+
+ScoreManager.prototype.refresh = function(scene) {
+    var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
+
+    scene.scoreText.setText(GlobalScene.ScoreManager.text(scene));
 }
