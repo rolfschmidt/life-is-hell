@@ -41,7 +41,9 @@ CollisionManager.prototype.collectStar = function(scene, player, star) {
     //  Add and update the score
     scene.scoreCount += 10;
     if (player.godMode) scene.scoreCount += 10000;
-    scene.scoreText.setText('score: ' + scene.scoreCount);
+
+    var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
+    GlobalScene.ScoreManager.refresh(scene);
 
     if (scene.stars.countActive(true) === 0)
     {
@@ -58,8 +60,24 @@ CollisionManager.prototype.collectStar = function(scene, player, star) {
         bomb.setBounce(1);
         bomb.setCollideWorldBounds(true);
         bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-
     }
+}
+
+CollisionManager.prototype.damagePlayer = function(scene, player, damage) {
+    scene.scoreCount = scene.scoreCount - damage;
+
+    var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
+    GlobalScene.ScoreManager.refresh(scene);
+
+    if ((scene.scoreCount / 100) > 0) return;
+
+    scene.physics.pause();
+
+    player.anims.play('dead_'+ scene.player.lastDirection);
+
+    var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
+
+    GlobalScene.StateManager.done = true;
 }
 
 CollisionManager.prototype.hitTrap = function(scene, player, trap) {
@@ -67,25 +85,15 @@ CollisionManager.prototype.hitTrap = function(scene, player, trap) {
     if ( trap.x > player.x && trap.x - player.x > trap.width * 0.9 ) return;
     if ( player.x > trap.x && player.x - trap.x > trap.width * 0.9 ) return;
 
-    scene.physics.pause();
-
-    player.anims.play('dead_'+ scene.player.lastDirection);
-
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
-
-    GlobalScene.StateManager.done = true;
+    GlobalScene.CollisionManager.damagePlayer(scene, player, 1);
 }
 
 CollisionManager.prototype.hitBomb = function(scene, player, bomb) {
     if (player.godMode) return;
 
-    scene.physics.pause();
-
-    player.anims.play('dead_'+ scene.player.lastDirection);
-
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
-
-    GlobalScene.StateManager.done = true;
+    GlobalScene.CollisionManager.damagePlayer(scene, player, 100);
 }
 
 CollisionManager.prototype.enterBoss = function(scene, player, door) {
