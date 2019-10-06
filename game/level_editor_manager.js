@@ -113,8 +113,9 @@ LevelEditorManager.prototype.update = function(scene) {
                 this.activatedKey = Key;
 
                 scene.levelEditorPlacement.setTexture(this.KeyboardMap[buttonIndex]['Texture']);
-                scene.levelEditorPlacement.Manager = this.KeyboardMap[buttonIndex]['Manager'];
+                scene.levelEditorPlacement.Manager        = this.KeyboardMap[buttonIndex]['Manager'];
                 scene.levelEditorPlacement.ManagerTexture = this.KeyboardMap[buttonIndex]['Texture'];
+                scene.levelEditorPlacement.SceneKey       = this.KeyboardMap[buttonIndex]['SceneKey'];
             }
             else {
                 scene['levelEditorButton' + buttonIndex].setTexture('level_editor_' + buttonIndex);
@@ -146,6 +147,20 @@ LevelEditorManager.prototype.onClick = function(scene, pointer, gameObject) {
         this.copyScene2Clipboard(scene);
         return;
     }
+
+    // prevent double blocks at the same points
+    var sceneData = scene[scene.levelEditorPlacement.SceneKey].children.entries || [];
+    var blockFound;
+    for (var index = 0; index < sceneData.length; index++ ) {
+        var entry = sceneData[index];
+
+        if ( scene.levelEditorPlacement.saveX != entry.x ) continue;
+        if ( scene.levelEditorPlacement.saveY != entry.y ) continue;
+
+        blockFound = true;
+    }
+
+    if ( blockFound ) return;
 
     GlobalScene[scene.levelEditorPlacement.Manager].createBlock(scene, scene.levelEditorPlacement.saveX, scene.levelEditorPlacement.saveY, scene.levelEditorPlacement.ManagerTexture);
 
