@@ -46,33 +46,39 @@ LevelEditorManager.prototype.update = function(scene) {
         },
         {
             'Key': 'TWO',
+            'Manager': 'PlatformManager',
+            'Texture': 'level1_block_left',
+            'SceneKey': 'platforms',
+        },
+        {
+            'Key': 'THREE',
+            'Manager': 'PlatformManager',
+            'Texture': 'level1_block_right',
+            'SceneKey': 'platforms',
+        },
+        {
+            'Key': 'FOUR',
             'Manager': 'TrapManager',
             'Texture': 'level1_block_kill',
             'SceneKey': 'traps',
         },
         {
-            'Key': 'THREE',
+            'Key': 'FIVE',
             'Manager': 'TrapManager',
             'Texture': 'level1_block_lava',
             'SceneKey': undefined,
         },
         {
-            'Key': 'FOUR',
+            'Key': 'SIX',
             'Manager': 'StarManager',
             'Texture': 'level1_star',
             'SceneKey': 'stars',
         },
         {
-            'Key': 'FIVE',
+            'Key': 'SEVEN',
             'Manager': 'DoorManager',
             'Texture': 'level1_boss_door',
             'SceneKey': 'bossDoors',
-        },
-        {
-            'Key': 'SIX',
-        },
-        {
-            'Key': 'SEVEN',
         },
         {
             'Key': 'EIGHT',
@@ -121,6 +127,8 @@ LevelEditorManager.prototype.update = function(scene) {
     if ( activeKey && this.activatedKey && activeKey != this.activatedKey ) {
         this.activatedKey = undefined;
     }
+
+    console.log('mouse', scene.input.mousePointer);
 
     scene.levelEditorPlacement.visible = scene.player.godMode && this.activatedKey && this.activatedKey != 'BACK_SLASH' ? true : false;
     scene.levelEditorPlacement.x       = ( Math.floor( scene.input.mousePointer.x / scene.levelEditorPlacement.width ) * scene.levelEditorPlacement.width ) + ( scene.levelEditorPlacement.width / 2 );
