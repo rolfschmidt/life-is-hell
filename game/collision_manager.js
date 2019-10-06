@@ -5,6 +5,8 @@ CollisionManager.prototype.preload = function(scene) {
 
 CollisionManager.prototype.create = function(scene) {
 
+    scene.physics.add.collider(scene.boss, scene.platforms);
+
     //  Collide the scene.player and the scene.stars with the scene.platforms
     scene.physics.add.collider(scene.player, scene.platforms);
     scene.physics.add.collider(scene.player, scene.bossDoor);
@@ -36,6 +38,8 @@ CollisionManager.prototype.update = function(scene) {
 
 
 CollisionManager.prototype.collectStar = function(scene, player, star) {
+    if (scene.player.godMode) return;
+
     star.disableBody(true, true);
 
     //  Add and update the score
