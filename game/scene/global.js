@@ -20,6 +20,7 @@ class SceneGlobal extends Phaser.Scene {
         this.PlatformManager    = new PlatformManager();
         this.DoorManager        = new DoorManager();
         this.PlayerManager      = new PlayerManager();
+        this.BossManager        = new BossManager();
         this.ControlManager     = new ControlManager();
         this.StarManager        = new StarManager();
         this.BombManager        = new BombManager();
