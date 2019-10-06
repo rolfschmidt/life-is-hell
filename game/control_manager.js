@@ -4,18 +4,20 @@ ControlManager.prototype.preload = function(scene) {
 }
 
 ControlManager.prototype.create = function(scene) {
-    scene.cursors       = scene.input.keyboard.createCursorKeys();
-    scene.cursors.W     = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-    scene.cursors.A     = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-    scene.cursors.S     = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-    scene.cursors.D     = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-    scene.cursors.F9    = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F9);
-    scene.cursors.F10   = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F10);
-    scene.cursors.ONE   = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
-    scene.cursors.TWO   = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
-    scene.cursors.THREE = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
-    scene.cursors.FOUR  = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR);
-    scene.cursors.FIVE  = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE);
+    scene.cursors            = scene.input.keyboard.createCursorKeys();
+    scene.cursors.W          = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    scene.cursors.A          = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    scene.cursors.S          = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    scene.cursors.D          = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    scene.cursors.F9         = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F9);
+    scene.cursors.F10        = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F10);
+    scene.cursors.ONE        = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
+    scene.cursors.TWO        = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
+    scene.cursors.THREE      = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
+    scene.cursors.FOUR       = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR);
+    scene.cursors.FIVE       = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE);
+    scene.cursors.BACK_SLASH = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACK_SLASH);
+    console.log('scene.input.keyboard', Phaser.Input.Keyboard.KeyCodes);
 }
 
 ControlManager.prototype.update = function(scene) {

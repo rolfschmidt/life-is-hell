@@ -11,31 +11,20 @@ PlatformManager.prototype.preload = function(scene) {
 PlatformManager.prototype.create = function(scene) {
     scene.platforms = scene.physics.add.staticGroup();
 
-    for (var groundX = 420; groundX < 920; groundX = groundX + 32) {
-        var blockType = 'level1_block_middle';
-        if (groundX == 420) blockType = 'level1_block_left';
-        if (groundX == 900) blockType = 'level1_block_right';
-        scene.platforms.create(groundX, 400, blockType);
-    }
-    for (var groundX = 0; groundX < 320; groundX = groundX + 32) {
-        var blockType = 'level1_block_middle';
-        if (groundX == 0) blockType = 'level1_block_left';
-        if (groundX == 320 - 32) blockType = 'level1_block_right';
-        scene.platforms.create(groundX, 250, blockType);
-    }
-    for (var groundX = 750; groundX < 1070; groundX = groundX + 32) {
-        var blockType = 'level1_block_middle';
-        if (groundX == 750) blockType = 'level1_block_left';
-        if (groundX == 1070 - 32) blockType = 'level1_block_right';
-        scene.platforms.create(groundX, 220, blockType);
-    }
-    for (var groundX = 0; groundX < config.physics.arcade.width; groundX = groundX + 32) {
-        var blockType = 'level1_block_middle';
-        if (groundX == 0) blockType = 'level1_block_left';
-        if (groundX == config.physics.arcade.width - 32) blockType = 'level1_block_right';
-        scene.platforms.create(groundX, 568, blockType);
+    let data = scene.cache.json.get('level1_data');
+    if ( typeof data.platforms == 'object' ) {
+        for (var dataIndex = 0; dataIndex < data.platforms.length; dataIndex++) {
+            var block = data.platforms[dataIndex];
+
+            this.createBlock(scene, block.x, block.y, block.texture);
+        }
     }
 }
 
 PlatformManager.prototype.update = function(scene) {
+}
+
+PlatformManager.prototype.createBlock = function(scene, x, y, blockType) {
+    var block = scene.platforms.create(x, y, blockType);
+    block.setInteractive();
 }
