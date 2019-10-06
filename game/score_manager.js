@@ -1,7 +1,7 @@
 function ScoreManager() {}
 
 ScoreManager.prototype.preload = function(scene) {
-    scene.scoreCount = 1000;
+    scene.scoreCount = 0;
 }
 
 ScoreManager.prototype.create = function(scene) {
