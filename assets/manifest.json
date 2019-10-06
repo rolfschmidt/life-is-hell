@@ -1,13 +1,53 @@
 {
-  "frames": {
-    "walk_left": 4,
-    "jump_left": 1,
-    "punch_left": 1,
-    "idle_left": 2,
-    "walk_right": 4,
-    "jump_right": 1,
-    "punch_right": 1,
-    "idle_right": 2
+  "animations": {
+    "walk_left": {
+      "size": 4,
+      "frame_rate": 10
+    },
+    "power_jump_left": {
+      "size": 1,
+      "frame_rate": 10
+    },
+    "punch_left": {
+      "size": 1,
+      "frame_rate": 10
+    },
+    "idle_left": {
+      "size": 2,
+      "frame_rate": 10
+    },
+    "jump_left": {
+      "size": 2,
+      "frame_rate": 1
+    },
+    "fall_left": {
+      "size": 2,
+      "frame_rate": 1
+    },
+    "walk_right": {
+      "size": 4,
+      "frame_rate": 10
+    },
+    "power_jump_right": {
+      "size": 1,
+      "frame_rate": 10
+    },
+    "punch_right": {
+      "size": 1,
+      "frame_rate": 10
+    },
+    "idle_right": {
+      "size": 2,
+      "frame_rate": 10
+    },
+    "jump_right": {
+      "size": 2,
+      "frame_rate": 1
+    },
+    "fall_right": {
+      "size": 2,
+      "frame_rate": 1
+    }
   },
   "images": [
     "stand_left",

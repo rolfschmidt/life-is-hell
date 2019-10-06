@@ -49,7 +49,18 @@ ControlManager.prototype.update = function(scene) {
 
         scene.player.setVelocityX(-560);
         scene.player.lastDirection = 'left';
-        scene.player.anims.play('walk_left', true);
+
+        if (!scene.player.body.touching.down) {
+            if (scene.player.body.velocity.y < -1000) {
+                scene.player.anims.play('power_jump_left');
+            }
+            else {
+                scene.player.anims.play('jump_left');
+            }
+        }
+        else {
+            scene.player.anims.play('walk_left', true);
+        }
     }
     else if (rightPressed) {
         if (scene.player.godMode) {
@@ -58,12 +69,44 @@ ControlManager.prototype.update = function(scene) {
 
         scene.player.setVelocityX(560);
         scene.player.lastDirection = 'right';
-        scene.player.anims.play('walk_right', true);
+
+        if (!scene.player.body.touching.down) {
+
+            if (scene.player.body.velocity.y < 0) {
+                if (scene.player.body.velocity.y < -1000) {
+                    scene.player.anims.play('power_jump_right');
+                }
+                else {
+                    scene.player.anims.play('jump_right');
+                }
+            }
+            else {
+                scene.player.anims.play('fall_right');
+            }
+        }
+        else {
+            scene.player.anims.play('walk_right', true);
+        }
     }
     else {
         scene.player.setVelocityX(0);
 
-        scene.player.anims.play('idle_' + scene.player.lastDirection, true);
+        if (!scene.player.body.touching.down) {
+            if (scene.player.body.velocity.y < 0) {
+                if (scene.player.body.velocity.y < -1000) {
+                    scene.player.anims.play('power_jump_'+ scene.player.lastDirection);
+                }
+                else {
+                    scene.player.anims.play('jump_'+ scene.player.lastDirection);
+                }
+            }
+            else {
+                scene.player.anims.play('fall_'+ scene.player.lastDirection);
+            }
+        }
+        else {
+            scene.player.anims.play('idle_' + scene.player.lastDirection, true);
+        }
     }
 
     if ( scene.player.godMode ) {

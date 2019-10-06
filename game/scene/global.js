@@ -24,16 +24,56 @@ class SceneGlobal extends Phaser.Scene {
     }
 
     create() {
-        var sprite_manifest = {
-          "frames": {
-            "walk_left": 4,
-            "jump_left": 1,
-            "punch_left": 1,
-            "idle_left": 2,
-            "walk_right": 4,
-            "jump_right": 1,
-            "punch_right": 1,
-            "idle_right": 2
+        var spriteManifest = {
+          "animations": {
+            "walk_left": {
+              "size": 4,
+              "frame_rate": 10
+            },
+            "power_jump_left": {
+              "size": 1,
+              "frame_rate": 10
+            },
+            "punch_left": {
+              "size": 1,
+              "frame_rate": 10
+            },
+            "idle_left": {
+              "size": 2,
+              "frame_rate": 10
+            },
+            "jump_left": {
+              "size": 2,
+              "frame_rate": 3
+            },
+            "fall_left": {
+              "size": 2,
+              "frame_rate": 3
+            },
+            "walk_right": {
+              "size": 4,
+              "frame_rate": 10
+            },
+            "power_jump_right": {
+              "size": 1,
+              "frame_rate": 10
+            },
+            "punch_right": {
+              "size": 1,
+              "frame_rate": 10
+            },
+            "idle_right": {
+              "size": 2,
+              "frame_rate": 10
+            },
+            "jump_right": {
+              "size": 2,
+              "frame_rate": 3
+            },
+            "fall_right": {
+              "size": 2,
+              "frame_rate": 3
+            }
           },
           "images": [
             "stand_left",
@@ -41,21 +81,22 @@ class SceneGlobal extends Phaser.Scene {
           ]
         };
 
-        for (var frame_name in sprite_manifest['frames']) {
+        for (var frameName in spriteManifest['animations']) {
 
-            var frame_start  = 1
-            var frame_end    = sprite_manifest['frames'][frame_name]
+            var frameStart = 1
+            var frameEnd   = spriteManifest['animations'][frameName]['size']
+            var frameRate  = spriteManifest['animations'][frameName]['frame_rate']
 
             this.anims.create({
-                key: frame_name,
+                key: frameName,
                 frames: this.anims.generateFrameNames('sprites',
                         {
-                            prefix:  frame_name + '_',
-                            start:   frame_start,
-                            end:     frame_end,
+                            prefix:  frameName + '_',
+                            start:   frameStart,
+                            end:     frameEnd,
                             zeroPad: 2,
                         }),
-                frameRate: 10,
+                frameRate: frameRate,
                 repeat: -1
             });
         }
