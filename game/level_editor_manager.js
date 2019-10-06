@@ -149,7 +149,7 @@ LevelEditorManager.prototype.onClick = function(scene, pointer, gameObject) {
     }
 
     // prevent double blocks at the same points
-    var sceneData = scene[scene.levelEditorPlacement.SceneKey].children.entries || [];
+    var sceneData = this.getSceneData(scene, scene.levelEditorPlacement.SceneKey) || [];
     var blockFound;
     for (var index = 0; index < sceneData.length; index++ ) {
         var entry = sceneData[index];
@@ -175,7 +175,7 @@ LevelEditorManager.prototype.copyScene2Clipboard = function(scene) {
 
         if ( !data['SceneKey'] ) continue;
 
-        var sceneData = scene[ data['SceneKey'] ].children.entries || [];
+        var sceneData = this.getSceneData(scene, data['SceneKey']) || [];
 
         exportData[ data['SceneKey'] ] = exportData[ data['SceneKey'] ] || [];
         for (var exportIndex = 0; exportIndex < sceneData.length; exportIndex++) {
@@ -213,4 +213,12 @@ LevelEditorManager.prototype.copyToClipboard = function(text) {
             document.body.removeChild(textarea);
         }
     }
+}
+
+LevelEditorManager.prototype.getSceneData = function(scene, key) {
+    if (!scene[key]) return;
+    if (!scene[key].children) return;
+    if (!scene[key].children.entries) return;
+
+    return scene[key].children.entries;
 }
