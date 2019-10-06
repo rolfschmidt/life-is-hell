@@ -180,9 +180,12 @@ LevelEditorManager.prototype.copyScene2Clipboard = function(scene) {
 
         if ( !data['SceneKey'] ) continue;
 
+        exportData[ data['SceneKey'] ] = exportData[ data['SceneKey'] ] || [];
+
+        if ( exportData[ data['SceneKey'] ].length ) continue;
+
         var sceneData = this.getSceneData(scene, data['SceneKey']) || [];
 
-        exportData[ data['SceneKey'] ] = exportData[ data['SceneKey'] ] || [];
         for (var exportIndex = 0; exportIndex < sceneData.length; exportIndex++) {
             var entry = sceneData[exportIndex];
 
