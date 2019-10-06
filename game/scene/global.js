@@ -7,19 +7,20 @@ class SceneGlobal extends Phaser.Scene {
         console.log('preload global');
         this.load.atlas('sprites', './assets/spritesheet.png', './assets/sprites.json');
 
-        this.StateManager      = new StateManager();
-        this.MusicManager      = new MusicManager();
-        this.BackgroundManager = new BackgroundManager();
-        this.PlatformManager   = new PlatformManager();
-        this.DoorManager       = new DoorManager();
-        this.PlayerManager     = new PlayerManager();
-        this.ControlManager    = new ControlManager();
-        this.StarManager       = new StarManager();
-        this.BombManager       = new BombManager();
-        this.TrapManager       = new TrapManager();
-        this.CollisionManager  = new CollisionManager();
-        this.CameraManager     = new CameraManager();
-        this.ScoreManager      = new ScoreManager();
+        this.StateManager       = new StateManager();
+        this.MusicManager       = new MusicManager();
+        this.BackgroundManager  = new BackgroundManager();
+        this.PlatformManager    = new PlatformManager();
+        this.DoorManager        = new DoorManager();
+        this.PlayerManager      = new PlayerManager();
+        this.ControlManager     = new ControlManager();
+        this.StarManager        = new StarManager();
+        this.BombManager        = new BombManager();
+        this.TrapManager        = new TrapManager();
+        this.CollisionManager   = new CollisionManager();
+        this.CameraManager      = new CameraManager();
+        this.ScoreManager       = new ScoreManager();
+        this.LevelEditorManager = new LevelEditorManager();
     }
 
     create() {
