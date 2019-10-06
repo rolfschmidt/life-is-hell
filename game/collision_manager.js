@@ -11,7 +11,7 @@ CollisionManager.prototype.create = function(scene) {
     scene.physics.add.collider(scene.stars, scene.platforms);
     scene.physics.add.collider(scene.bombs, scene.platforms);
     scene.physics.add.collider(scene.traps, scene.platforms);
-    scene.physics.add.collider(scene.bossDoor, scene.platforms);
+    scene.physics.add.collider(scene.bossDoors, scene.platforms);
 
     var CollisionManager = this;
 

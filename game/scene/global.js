@@ -6,6 +6,7 @@ class SceneGlobal extends Phaser.Scene {
     preload() {
         console.log('preload global');
         this.load.atlas('sprites', './assets/spritesheet.png', './assets/sprites.json');
+        this.load.json('level1_data', './game/scene/level1/objects.json');
 
         this.StateManager       = new StateManager();
         this.MusicManager       = new MusicManager();
