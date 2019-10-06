@@ -6,6 +6,12 @@ class SceneGlobal extends Phaser.Scene {
     preload() {
         console.log('preload global');
         this.load.atlas('sprites', './assets/spritesheet.png', './assets/sprites.json');
+
+        var that = this;
+        spriteManifest['images'].forEach(function(imageName) {
+          that.load.image(imageName, './assets/images/'+ imageName +'.png');
+        });
+
         this.load.json('level1_data', './game/scene/level1/objects.json');
 
         this.StateManager       = new StateManager();
@@ -25,63 +31,6 @@ class SceneGlobal extends Phaser.Scene {
     }
 
     create() {
-        var spriteManifest = {
-          "animations": {
-            "walk_left": {
-              "size": 4,
-              "frame_rate": 10
-            },
-            "power_jump_left": {
-              "size": 1,
-              "frame_rate": 10
-            },
-            "punch_left": {
-              "size": 1,
-              "frame_rate": 10
-            },
-            "idle_left": {
-              "size": 2,
-              "frame_rate": 10
-            },
-            "jump_left": {
-              "size": 2,
-              "frame_rate": 3
-            },
-            "fall_left": {
-              "size": 2,
-              "frame_rate": 3
-            },
-            "walk_right": {
-              "size": 4,
-              "frame_rate": 10
-            },
-            "power_jump_right": {
-              "size": 1,
-              "frame_rate": 10
-            },
-            "punch_right": {
-              "size": 1,
-              "frame_rate": 10
-            },
-            "idle_right": {
-              "size": 2,
-              "frame_rate": 10
-            },
-            "jump_right": {
-              "size": 2,
-              "frame_rate": 3
-            },
-            "fall_right": {
-              "size": 2,
-              "frame_rate": 3
-            }
-          },
-          "images": [
-            "stand_left",
-            "stand_right"
-          ]
-        };
-
         for (var frameName in spriteManifest['animations']) {
 
             var frameStart = 1

@@ -1,7 +1,6 @@
 function PlayerManager() {}
 
 PlayerManager.prototype.preload = function(scene) {
-    scene.load.spritesheet('level1_dude', './assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
 PlayerManager.prototype.create = function(scene) {

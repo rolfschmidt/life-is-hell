@@ -1,7 +1,6 @@
 function BackgroundManager() {}
 
 BackgroundManager.prototype.preload = function(scene) {
-    scene.load.image('level1_sky', './assets/background_scene_level1_1024_768.png');
 }
 
 BackgroundManager.prototype.create = function(scene) {

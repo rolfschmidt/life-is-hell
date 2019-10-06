@@ -4,8 +4,6 @@ class SceneIntro extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('intro_sky', './assets/background_scene_intro_1024_768.png');
-        this.load.image('intro_play', './assets/scene_intro_play_360_80.png');
         this.load.audio('intro_music', './sounds/intro_32kbps.mp3');
     }
 

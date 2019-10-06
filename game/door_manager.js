@@ -1,7 +1,6 @@
 function DoorManager() {}
 
 DoorManager.prototype.preload = function(scene) {
-    scene.load.image('level1_boss_door', './assets/boss_door_96_96.png');
 }
 
 DoorManager.prototype.create = function(scene) {

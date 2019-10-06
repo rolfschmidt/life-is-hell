@@ -128,8 +128,6 @@ LevelEditorManager.prototype.update = function(scene) {
         this.activatedKey = undefined;
     }
 
-    console.log('mouse', scene.input.mousePointer);
-
     scene.levelEditorPlacement.visible = scene.player.godMode && this.activatedKey && this.activatedKey != 'BACK_SLASH' ? true : false;
     scene.levelEditorPlacement.x       = ( Math.floor( scene.input.mousePointer.x / scene.levelEditorPlacement.width ) * scene.levelEditorPlacement.width ) + ( scene.levelEditorPlacement.width / 2 );
     scene.levelEditorPlacement.saveX   = ( Math.floor( scene.input.mousePointer.worldX / scene.levelEditorPlacement.width ) * scene.levelEditorPlacement.width ) + ( scene.levelEditorPlacement.width / 2 );

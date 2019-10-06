@@ -1,11 +1,6 @@
 function PlatformManager() {}
 
 PlatformManager.prototype.preload = function(scene) {
-    scene.load.image('level1_block_lava', './assets/block_lava_32_32.png');
-    scene.load.image('level1_block_kill', './assets/block_kill_32_32.png');
-    scene.load.image('level1_block_middle', './assets/block_middle_32_32.png');
-    scene.load.image('level1_block_left', './assets/block_left_32_32.png');
-    scene.load.image('level1_block_right', './assets/block_right_32_32.png');
 }
 
 PlatformManager.prototype.create = function(scene) {

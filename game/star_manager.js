@@ -1,7 +1,6 @@
 function StarManager() {}
 
 StarManager.prototype.preload = function(scene) {
-    scene.load.image('level1_star', './assets/star.png');
 }
 
 StarManager.prototype.create = function(scene) {
