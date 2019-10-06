@@ -69,9 +69,7 @@ CollisionManager.prototype.hitTrap = function(scene, player, trap) {
 
     scene.physics.pause();
 
-    player.setTint(0xff0000);
-
-    player.anims.play('turn');
+    player.anims.play('dead_'+ scene.player.lastDirection);
 
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
 
@@ -83,9 +81,7 @@ CollisionManager.prototype.hitBomb = function(scene, player, bomb) {
 
     scene.physics.pause();
 
-    player.setTint(0xff0000);
-
-    player.anims.play('turn');
+    player.anims.play('dead_'+ scene.player.lastDirection);
 
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
 
