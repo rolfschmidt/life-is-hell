@@ -36,6 +36,8 @@ CollisionManager.prototype.update = function(scene) {
 
 
 CollisionManager.prototype.collectStar = function(scene, player, star) {
+    if (scene.player.godMode) return;
+
     star.disableBody(true, true);
 
     //  Add and update the score

@@ -137,14 +137,18 @@ LevelEditorManager.prototype.update = function(scene) {
 }
 
 LevelEditorManager.prototype.onClick = function(scene, pointer, gameObject) {
-    if (!scene.player.godMode) return;
+    if (!scene.player.godMode) {
+        this.copyScene2Clipboard(scene);
+        return;
+    }
     if (!this.activatedKey) return;
+
+    this.copiedScene2Clipboard = false;
 
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
 
     if ( this.activatedKey == 'BACK_SLASH' ) {
         gameObject.destroy();
-        this.copyScene2Clipboard(scene);
         return;
     }
 
@@ -163,11 +167,12 @@ LevelEditorManager.prototype.onClick = function(scene, pointer, gameObject) {
     if ( blockFound ) return;
 
     GlobalScene[scene.levelEditorPlacement.Manager].createBlock(scene, scene.levelEditorPlacement.saveX, scene.levelEditorPlacement.saveY, scene.levelEditorPlacement.ManagerTexture);
-
-    this.copyScene2Clipboard(scene);
 }
 
 LevelEditorManager.prototype.copyScene2Clipboard = function(scene) {
+    if ( this.copiedScene2Clipboard ) return;
+
+    this.copiedScene2Clipboard = true;
 
     var exportData = {};
     for (var index = 0; index < this.KeyboardMap.length; index++) {
