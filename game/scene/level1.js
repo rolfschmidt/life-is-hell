@@ -12,6 +12,7 @@ class SceneLevel1 extends Phaser.Scene {
         GlobalScene.PlatformManager.preload(this);
         GlobalScene.DoorManager.preload(this);
         GlobalScene.PlayerManager.preload(this);
+        GlobalScene.BossManager.preload(this);
         GlobalScene.ControlManager.preload(this);
         GlobalScene.StarManager.preload(this);
         GlobalScene.BombManager.preload(this);
@@ -31,6 +32,7 @@ class SceneLevel1 extends Phaser.Scene {
         GlobalScene.PlatformManager.create(this);
         GlobalScene.DoorManager.create(this);
         GlobalScene.PlayerManager.create(this);
+        GlobalScene.BossManager.create(this);
         GlobalScene.ControlManager.create(this);
         GlobalScene.StarManager.create(this);
         GlobalScene.BombManager.create(this);
@@ -54,6 +56,7 @@ class SceneLevel1 extends Phaser.Scene {
         GlobalScene.PlatformManager.update(this);
         GlobalScene.DoorManager.update(this);
         GlobalScene.PlayerManager.update(this);
+        GlobalScene.BossManager.update(this);
         GlobalScene.ControlManager.update(this);
         GlobalScene.StarManager.update(this);
         GlobalScene.BombManager.update(this);
