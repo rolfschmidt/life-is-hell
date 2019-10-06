@@ -103,6 +103,8 @@ var spriteManifest = {
     "level1_star",
     "level1_boss_sky",
     "intro_sky",
+    "game_over_sky",
+    "game_over_play",
     "intro_play",
     "star",
     "platform",

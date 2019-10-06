@@ -82,6 +82,11 @@ CollisionManager.prototype.damagePlayer = function(scene, player, damage) {
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
 
     GlobalScene.StateManager.done = true;
+
+    setTimeout(function() {
+        scene.level1Music.stop();
+        scene.scene.start("SceneGameOver");
+    }, 500);
 }
 
 CollisionManager.prototype.hitTrap = function(scene, player, trap) {
