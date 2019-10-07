@@ -6,7 +6,7 @@ TrapManager.prototype.preload = function(scene) {
 TrapManager.prototype.create = function(scene) {
     scene.traps = scene.physics.add.staticGroup();
 
-    let data = scene.cache.json.get('level1_data');
+    let data = scene.cache.json.get(scene.levelKey);
     if ( typeof data.traps == 'object' ) {
         for (var dataIndex = 0; dataIndex < data.traps.length; dataIndex++) {
             var block = data.traps[dataIndex];

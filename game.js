@@ -2,7 +2,7 @@ var config = {
     type: Phaser.AUTO,
     width: 1024,
     height: 768,
-    devMode: false,
+    devMode: true,
     physics: {
         default: 'arcade',
         arcade: {
@@ -11,7 +11,7 @@ var config = {
             width: 20000
         }
     },
-    scene: [SceneGlobal, SceneIntro, SceneLevel1, SceneLevel1Boss, SceneGameOver, SceneGameWin]
+    scene: [SceneGlobal, SceneIntro, SceneLevel1,SceneLevel2, SceneLevel1Boss, SceneGameOver, SceneGameWin]
 };
 
 var game = new Phaser.Game(config);

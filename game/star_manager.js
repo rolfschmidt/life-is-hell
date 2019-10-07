@@ -8,7 +8,7 @@ StarManager.prototype.create = function(scene) {
     //  Some scene.stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
     scene.stars = scene.physics.add.group();
 
-    let data = scene.cache.json.get('level1_data');
+    let data = scene.cache.json.get(scene.levelKey);
     if ( typeof data.stars == 'object' ) {
         for (var dataIndex = 0; dataIndex < data.stars.length; dataIndex++) {
             var block = data.stars[dataIndex];
