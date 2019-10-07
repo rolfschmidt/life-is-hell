@@ -8,12 +8,17 @@ class SceneGameWin extends Phaser.Scene {
     }
 
     create() {
+        var GlobalScene = this.scene.manager.keys['SceneGlobal'];
 
-        //  A simple background for our game
         this.add.image(512, 384, 'game_win_sky');
-        var play = this.add.image(750, 500, 'game_win_play');
 
-        play.setInteractive();
+        if (GlobalScene.sceneNextLevel) {
+            var next = this.add.image(750, 500, 'game_win_next');
+            next.setInteractive();
+        }
+
+        var menu = this.add.image(750, 700, 'game_win_menu');
+        menu.setInteractive();
 
         this.input.on('gameobjectdown', this.onClick, this);
 
@@ -33,6 +38,12 @@ class SceneGameWin extends Phaser.Scene {
         var GlobalScene = this.scene.manager.keys['SceneGlobal'];
 
         this.gameWinMusic.stop();
-        this.scene.start(GlobalScene.lastScene);
+
+        if ( gameObject.texture.key == 'game_win_next' ) {
+            this.scene.start(GlobalScene.sceneNextLevel);
+        }
+        else {
+            this.scene.start('SceneIntro');
+        }
     }
 }

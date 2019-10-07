@@ -105,6 +105,8 @@ var spriteManifest = {
     "intro_sky",
     "game_win_sky",
     "game_win_play",
+    "game_win_next",
+    "game_win_menu",
     "game_over_sky",
     "game_over_play",
     "intro_play",

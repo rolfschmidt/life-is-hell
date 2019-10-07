@@ -26,8 +26,9 @@ class SceneLevel4 extends Phaser.Scene {
     create() {
         var GlobalScene = this.scene.manager.keys['SceneGlobal'];
 
-        this.levelKey         = 'level4_data';
-        GlobalScene.lastScene = 'SceneLevel4';
+        this.levelKey              = 'level4_data';
+        GlobalScene.sceneNextLevel = 'SceneLevel5';
+        GlobalScene.lastScene      = 'SceneLevel4';
 
         GlobalScene.StateManager.create(this);
         GlobalScene.MusicManager.create(this);
