@@ -8,6 +8,7 @@ class SceneIntro extends Phaser.Scene {
     }
 
     create() {
+        this.onClickExecuted = false;
 
         //  A simple background for our game
         this.add.image(512, 384, 'intro_sky');
@@ -32,6 +33,9 @@ class SceneIntro extends Phaser.Scene {
     }
 
     onClick(pointer, gameObject) {
+        if (this.onClickExecuted) return;
+        this.onClickExecuted = true;
+
         this.introMusic.stop();
         this.scene.start("SceneLevel1");
     }

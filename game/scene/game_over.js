@@ -8,6 +8,7 @@ class SceneGameOver extends Phaser.Scene {
     }
 
     create() {
+        this.onClickExecuted = false;
 
         //  A simple background for our game
         this.add.image(512, 384, 'game_over_sky');
@@ -30,6 +31,9 @@ class SceneGameOver extends Phaser.Scene {
     }
 
     onClick(pointer, gameObject) {
+        if (this.onClickExecuted) return;
+        this.onClickExecuted = true;
+
         var GlobalScene = this.scene.manager.keys['SceneGlobal'];
 
         this.gameOverMusic.stop();

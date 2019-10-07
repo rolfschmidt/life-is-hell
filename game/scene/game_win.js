@@ -8,6 +8,8 @@ class SceneGameWin extends Phaser.Scene {
     }
 
     create() {
+        this.onClickExecuted = false;
+
         var GlobalScene = this.scene.manager.keys['SceneGlobal'];
 
         this.add.image(512, 384, 'game_win_sky');
@@ -36,6 +38,9 @@ class SceneGameWin extends Phaser.Scene {
     }
 
     startNewLevel(pointer, gameObject) {
+        if (this.onClickExecuted) return;
+        this.onClickExecuted = true;
+
         var GlobalScene = this.scene.manager.keys['SceneGlobal'];
 
         this.gameWinMusic.stop();
@@ -44,6 +49,9 @@ class SceneGameWin extends Phaser.Scene {
     }
 
     onClick(pointer, gameObject) {
+        if (this.onClickExecuted) return;
+        this.onClickExecuted = true;
+
         var GlobalScene = this.scene.manager.keys['SceneGlobal'];
 
         this.gameWinMusic.stop();
