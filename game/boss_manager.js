@@ -11,6 +11,10 @@ BossManager.prototype.create = function(scene) {
 }
 
 BossManager.prototype.update = function(scene) {
+    if (scene.player.godMode) {
+        scene.boss.body.moves = false;
+        return;
+    }
 
     var yLow  = 0;
     var yHigh = 0;
