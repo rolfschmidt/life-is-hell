@@ -86,6 +86,9 @@ LevelEditorManager.prototype.update = function(scene) {
         {
             'Key': 'NINE',
         },
+        {
+            'Key': 'Q',
+        },
     ];
 
     var activeKey;

@@ -21,6 +21,7 @@ ControlManager.prototype.create = function(scene) {
     scene.cursors.EIGHT      = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.EIGHT);
     scene.cursors.NINE       = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NINE);
     scene.cursors.BACK_SLASH = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.BACK_SLASH);
+    scene.cursors.Q          = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
     console.log('scene.input.keyboard', Phaser.Input.Keyboard.KeyCodes);
 }
 
