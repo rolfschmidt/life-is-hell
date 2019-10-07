@@ -43,7 +43,7 @@ CollisionManager.prototype.collectStar = function(scene, player, star) {
     star.disableBody(true, true);
 
     //  Add and update the score
-    scene.scoreCount += 20;
+    scene.scoreCount += 10;
     if (player.godMode) scene.scoreCount += 10000;
 
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
