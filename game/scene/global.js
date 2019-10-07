@@ -56,6 +56,6 @@ class SceneGlobal extends Phaser.Scene {
             });
         }
 
-        this.scene.start("SceneIntro");
+        this.scene.start((config.devMode ? "SceneLevel1" : "SceneIntro"));
     }
 }
