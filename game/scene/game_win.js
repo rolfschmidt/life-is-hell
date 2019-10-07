@@ -20,8 +20,6 @@ class SceneGameWin extends Phaser.Scene {
         var menu = this.add.image(750, 700, 'game_win_menu');
         menu.setInteractive();
 
-        this.input.on('gameobjectdown', this.onClick, this);
-
         this.gameWinMusic = this.sound.add('game_win_music', {
             mute: (config.devMode ? true : false),
             volume: 0.1,
@@ -32,6 +30,8 @@ class SceneGameWin extends Phaser.Scene {
             delay: 0
         });
         this.gameWinMusic.play();
+
+        this.input.on('gameobjectdown', this.onClick, this);
     }
 
     onClick(pointer, gameObject) {

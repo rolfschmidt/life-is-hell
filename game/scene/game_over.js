@@ -12,10 +12,7 @@ class SceneGameOver extends Phaser.Scene {
         //  A simple background for our game
         this.add.image(512, 384, 'game_over_sky');
         var play = this.add.image(700, 500, 'game_over_play');
-
         play.setInteractive();
-
-        this.input.on('gameobjectdown', this.onClick, this);
 
         this.gameOverMusic = this.sound.add('game_over_music', {
             mute: (config.devMode ? true : false),
@@ -27,6 +24,8 @@ class SceneGameOver extends Phaser.Scene {
             delay: 0
         });
         this.gameOverMusic.play();
+
+        this.input.on('gameobjectdown', this.onClick, this);
     }
 
     onClick(pointer, gameObject) {

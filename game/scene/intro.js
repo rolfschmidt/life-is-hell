@@ -15,8 +15,6 @@ class SceneIntro extends Phaser.Scene {
         var play = this.add.image(512, 270, 'intro_play');
         play.setInteractive();
 
-        this.input.on('gameobjectdown', this.onClick, this);
-
         // load intro music
         this.introMusic = this.sound.add('intro_music', {
             mute: (config.devMode ? true : false),
@@ -28,6 +26,8 @@ class SceneIntro extends Phaser.Scene {
             delay: 0
         });
         this.introMusic.play();
+
+        this.input.on('gameobjectdown', this.onClick, this);
     }
 
     onClick(pointer, gameObject) {
