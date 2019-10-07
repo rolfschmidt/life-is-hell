@@ -55,7 +55,7 @@ class SceneLevel4 extends Phaser.Scene {
         }
     }
 
-    update () {
+    update (time, delta) {
         var GlobalScene = this.scene.manager.keys['SceneGlobal'];
 
         if (GlobalScene.StateManager.done) {
@@ -69,7 +69,7 @@ class SceneLevel4 extends Phaser.Scene {
         GlobalScene.DoorManager.update(this);
         GlobalScene.PlayerManager.update(this);
         GlobalScene.BossManager.update(this);
-        GlobalScene.ControlManager.update(this);
+        GlobalScene.ControlManager.update(this, time, delta);
         GlobalScene.StarManager.update(this);
         GlobalScene.BombManager.update(this);
         GlobalScene.TrapManager.update(this);

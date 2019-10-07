@@ -24,7 +24,7 @@ ControlManager.prototype.create = function(scene) {
     scene.cursors.Q          = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 }
 
-ControlManager.prototype.update = function(scene) {
+ControlManager.prototype.update = function(scene, time, delta) {
     var leftPressed  = scene.cursors.left.isDown || scene.cursors.A.isDown;
     var rightPressed = scene.cursors.right.isDown || scene.cursors.D.isDown;
     var upPressed    = scene.cursors.up.isDown || scene.cursors.W.isDown;
@@ -125,33 +125,31 @@ ControlManager.prototype.update = function(scene) {
     }
     else {
 
-        if (upPressed && scene.player.store.jumpCount > 0 && scene.player.store.jumpPossible) {
-            if (scene.player.store.jumpCount == 2) {
-                scene.player.store.velocityY = Math.min(scene.player.store.jumpVelocityY, -1000);
-                scene.player.store.jumpVelocityY -= 1000;
+        if (upPressed && time > scene.player.store.jumpUntil) {
+
+            if ( scene.player.store.jumpCount == 2 ) {
+                scene.player.store.velocityY = -500;
+                scene.player.store.jumpPossible = false;
+                scene.player.store.jumpCount--;
+                scene.player.store.jumpUntil = time + 250;
             }
-            else {
-                scene.player.store.velocityY = Math.min(scene.player.store.jumpVelocityY, -1500);
-                scene.player.store.jumpVelocityY -= 1500;
-            }
-            scene.player.store.jumpCount -= 1;
-            scene.player.store.jumpPossible = false;
-        }
-        if ( !scene.player.body.touching.down ) {
-            scene.player.store.velocityY += 75;
-            scene.player.store.jumpVelocityY += 75;
-            if ( scene.player.store.jumpVelocityY > 0 ) {
-                scene.player.store.jumpVelocityY = 0;
+            else if ( scene.player.store.jumpCount == 1 && scene.player.store.jumpPossible ) {
+                scene.player.store.velocityY = -850;
+                scene.player.store.jumpPossible = false;
+                scene.player.store.jumpCount--;
+                scene.player.store.jumpUntil = time + 200;
             }
         }
-        if ( scene.player.body.touching.down ) {
+        else if ( scene.player.body.touching.down && time > scene.player.store.jumpUntil ) {
             scene.player.store.jumpCount = 2;
-            scene.player.store.jumpPossible = true;
+            scene.player.store.jumpUntil = 0;
         }
+
         if ( !upPressed ) {
             scene.player.store.jumpPossible = true;
         }
-
-        scene.player.setVelocityY(scene.player.store.velocityY);
+        if ( time < scene.player.store.jumpUntil ) {
+            scene.player.setVelocityY(scene.player.store.velocityY);
+        }
     }
 }

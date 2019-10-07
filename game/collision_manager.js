@@ -43,7 +43,7 @@ CollisionManager.prototype.collectStar = function(scene, player, star) {
     star.disableBody(true, true);
 
     //  Add and update the score
-    scene.scoreCount += 10;
+    scene.scoreCount += 20;
     if (player.godMode) scene.scoreCount += 10000;
 
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
@@ -102,7 +102,7 @@ CollisionManager.prototype.hitBomb = function(scene, player, bomb) {
     if (player.godMode) return;
 
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
-    GlobalScene.CollisionManager.damagePlayer(scene, player, 40);
+    GlobalScene.CollisionManager.damagePlayer(scene, player, 15);
 }
 
 CollisionManager.prototype.enterBoss = function(scene, player, door) {
