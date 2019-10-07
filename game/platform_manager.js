@@ -4,7 +4,10 @@ PlatformManager.prototype.preload = function(scene) {
 }
 
 PlatformManager.prototype.create = function(scene) {
-    scene.platforms = scene.physics.add.staticGroup();
+    scene.platforms = scene.physics.add.group({
+      allowGravity: false,
+      immovable: true
+    });
 
     let data = scene.cache.json.get(scene.levelKey);
     if ( typeof data.platforms == 'object' ) {
