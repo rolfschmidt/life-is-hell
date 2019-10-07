@@ -30,7 +30,9 @@ class SceneGameOver extends Phaser.Scene {
     }
 
     onClick(pointer, gameObject) {
+        var GlobalScene = this.scene.manager.keys['SceneGlobal'];
+
         this.gameOverMusic.stop();
-        this.scene.start("SceneLevel1");
+        this.scene.start(GlobalScene.lastScene);
     }
 }

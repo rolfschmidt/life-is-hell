@@ -1,6 +1,6 @@
-class SceneLevel1 extends Phaser.Scene {
+class SceneLevel5 extends Phaser.Scene {
     constructor() {
-        super({ key: 'SceneLevel1', active: false });
+        super({ key: 'SceneLevel5', active: false });
     }
 
     preload() {
@@ -26,8 +26,8 @@ class SceneLevel1 extends Phaser.Scene {
     create() {
         var GlobalScene = this.scene.manager.keys['SceneGlobal'];
 
-        this.levelKey         = 'level1_data';
-        GlobalScene.lastScene = 'SceneLevel1';
+        this.levelKey         = 'level5_data';
+        GlobalScene.lastScene = 'SceneLevel5';
 
         GlobalScene.StateManager.create(this);
         GlobalScene.MusicManager.create(this);

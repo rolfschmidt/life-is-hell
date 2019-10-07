@@ -21,7 +21,7 @@ LevelEditorManager.prototype.create = function(scene) {
 
     var LevelEditorManager = this;
 
-    scene.input.on('gameobjectdown', function(pointer, gameObject) {
+    scene.input.on('gameobjectmove', function(pointer, gameObject) {
         LevelEditorManager.onClick(scene, pointer, gameObject);
     }, scene);
 }
