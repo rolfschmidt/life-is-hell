@@ -4,7 +4,6 @@ class SceneGlobal extends Phaser.Scene {
     }
 
     preload() {
-        console.log('preload global');
         this.load.atlas('sprites', './assets/spritesheet.png', './assets/sprites.json');
 
         var that = this;
