@@ -26,6 +26,7 @@ class SceneGameOver extends Phaser.Scene {
         this.gameOverMusic.play();
 
         this.input.on('gameobjectdown', this.onClick, this);
+        this.input.keyboard.on('keydown', this.onClick, this);
     }
 
     onClick(pointer, gameObject) {

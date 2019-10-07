@@ -32,6 +32,15 @@ class SceneGameWin extends Phaser.Scene {
         this.gameWinMusic.play();
 
         this.input.on('gameobjectdown', this.onClick, this);
+        this.input.keyboard.on('keydown', this.startNewLevel, this);
+    }
+
+    startNewLevel(pointer, gameObject) {
+        var GlobalScene = this.scene.manager.keys['SceneGlobal'];
+
+        this.gameWinMusic.stop();
+
+        this.scene.start(GlobalScene.sceneNextLevel);
     }
 
     onClick(pointer, gameObject) {

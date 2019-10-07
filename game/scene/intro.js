@@ -28,6 +28,7 @@ class SceneIntro extends Phaser.Scene {
         this.introMusic.play();
 
         this.input.on('gameobjectdown', this.onClick, this);
+        this.input.keyboard.on('keydown', this.onClick, this);
     }
 
     onClick(pointer, gameObject) {
