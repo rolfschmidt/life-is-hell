@@ -49,22 +49,22 @@ CollisionManager.prototype.collectStar = function(scene, player, star) {
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
     GlobalScene.ScoreManager.refresh(scene);
 
-    if (scene.stars.countActive(true) === 0)
-    {
-        //  A new batch of scene.stars to collect
-        scene.stars.children.iterate(function (child) {
+    // if (scene.stars.countActive(true) === 0)
+    // {
+    //     //  A new batch of scene.stars to collect
+    //     scene.stars.children.iterate(function (child) {
 
-            child.enableBody(true, child.x, 0, true, true);
+    //         child.enableBody(true, child.x, 0, true, true);
 
-        });
+    //     });
 
-        var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+    //     var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
-        var bomb = scene.bombs.create(x, 16, 'level1_bomb');
-        bomb.setBounce(1);
-        bomb.setCollideWorldBounds(true);
-        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-    }
+    //     var bomb = scene.bombs.create(x, 16, 'level1_bomb');
+    //     bomb.setBounce(1);
+    //     bomb.setCollideWorldBounds(true);
+    //     bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+    // }
 }
 
 CollisionManager.prototype.damagePlayer = function(scene, player, damage) {
@@ -95,14 +95,14 @@ CollisionManager.prototype.hitTrap = function(scene, player, trap) {
     if ( player.x > trap.x && player.x - trap.x > trap.width * 0.9 ) return;
 
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
-    GlobalScene.CollisionManager.damagePlayer(scene, player, 1);
+    GlobalScene.CollisionManager.damagePlayer(scene, player, 2.5);
 }
 
 CollisionManager.prototype.hitBomb = function(scene, player, bomb) {
     if (player.godMode) return;
 
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
-    GlobalScene.CollisionManager.damagePlayer(scene, player, 100);
+    GlobalScene.CollisionManager.damagePlayer(scene, player, 40);
 }
 
 CollisionManager.prototype.enterBoss = function(scene, player, door) {
