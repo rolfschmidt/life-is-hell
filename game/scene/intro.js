@@ -11,8 +11,8 @@ class SceneIntro extends Phaser.Scene {
 
         //  A simple background for our game
         this.add.image(512, 384, 'intro_sky');
-        var play = this.add.image(512, 384, 'intro_play');
 
+        var play = this.add.image(512, 270, 'intro_play');
         play.setInteractive();
 
         this.input.on('gameobjectdown', this.onClick, this);
