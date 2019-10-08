@@ -38,12 +38,22 @@ CollisionManager.prototype.update = function(scene) {
 
 
 CollisionManager.prototype.collectStar = function(scene, player, star) {
+    var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
+
     if (scene.player.godMode) return;
 
     star.disableBody(true, true);
 
+    var addValue = 10;
+    if ( GlobalScene.gameDifficulty == 'easy' ) {
+        addValue = 50;
+    }
+    else if ( GlobalScene.gameDifficulty == 'hard' ) {
+        addValue = 30;
+    }
+
     //  Add and update the score
-    scene.scoreCount += 10;
+    scene.scoreCount += addValue;
     if (player.godMode) scene.scoreCount += 10000;
 
     var GlobalScene = scene.scene.manager.keys['SceneGlobal'];
