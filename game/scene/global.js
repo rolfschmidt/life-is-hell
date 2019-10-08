@@ -35,6 +35,8 @@ class SceneGlobal extends Phaser.Scene {
     }
 
     create() {
+        this.gameDifficulty = 'hell';
+
         for (var frameName in spriteManifest['animations']) {
 
             var frameStart = 1
