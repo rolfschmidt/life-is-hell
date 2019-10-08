@@ -84,7 +84,6 @@ CollisionManager.prototype.damagePlayer = function(scene, player, damage) {
     GlobalScene.StateManager.done = true;
 
     setTimeout(function() {
-        scene.level1Music.stop();
         scene.scene.start("SceneGameOver");
     }, 500);
 }
@@ -109,6 +108,5 @@ CollisionManager.prototype.enterBoss = function(scene, player, door) {
     if (player.godMode) return;
     if (!scene.cursors.up.isDown && !scene.cursors.W.isDown) return;
 
-    scene.level1Music.stop();
     scene.scene.start("SceneLevel1Boss");
 }

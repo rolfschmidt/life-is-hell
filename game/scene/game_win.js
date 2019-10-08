@@ -4,10 +4,16 @@ class SceneGameWin extends Phaser.Scene {
     }
 
     preload() {
-        this.load.audio('game_win_music', './sounds/game_win_32kbps.mp3');
+        var GlobalScene = this.scene.manager.keys['SceneGlobal'];
+
+        GlobalScene.MusicManager.preload(this);
     }
 
     create() {
+        var GlobalScene = this.scene.manager.keys['SceneGlobal'];
+
+        GlobalScene.MusicManager.create(this);
+
         this.onClickExecuted = false;
 
         var GlobalScene = this.scene.manager.keys['SceneGlobal'];
@@ -22,17 +28,6 @@ class SceneGameWin extends Phaser.Scene {
         var menu = this.add.image(750, 700, 'game_win_menu');
         menu.setInteractive();
 
-        this.gameWinMusic = this.sound.add('game_win_music', {
-            mute: (config.devMode ? true : false),
-            volume: 0.1,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay: 0
-        });
-        this.gameWinMusic.play();
-
         this.input.on('gameobjectdown', this.onClick, this);
         this.input.keyboard.on('keydown', this.startNewLevel, this);
     }
@@ -43,8 +38,6 @@ class SceneGameWin extends Phaser.Scene {
 
         var GlobalScene = this.scene.manager.keys['SceneGlobal'];
 
-        this.gameWinMusic.stop();
-
         this.scene.start(GlobalScene.sceneNextLevel);
     }
 
@@ -53,8 +46,6 @@ class SceneGameWin extends Phaser.Scene {
         this.onClickExecuted = true;
 
         var GlobalScene = this.scene.manager.keys['SceneGlobal'];
-
-        this.gameWinMusic.stop();
 
         if ( gameObject.texture.key == 'game_win_next' ) {
             this.scene.start(GlobalScene.sceneNextLevel);

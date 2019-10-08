@@ -4,10 +4,16 @@ class SceneIntro extends Phaser.Scene {
     }
 
     preload() {
-        this.load.audio('intro_music', './sounds/intro_32kbps.mp3');
+        var GlobalScene = this.scene.manager.keys['SceneGlobal'];
+
+        GlobalScene.MusicManager.preload(this);
     }
 
     create() {
+        var GlobalScene = this.scene.manager.keys['SceneGlobal'];
+
+        GlobalScene.MusicManager.create(this);
+
         this.onClickExecuted = false;
 
         //  A simple background for our game
@@ -15,18 +21,6 @@ class SceneIntro extends Phaser.Scene {
 
         var play = this.add.image(512, 270, 'intro_play');
         play.setInteractive();
-
-        // load intro music
-        this.introMusic = this.sound.add('intro_music', {
-            mute: (config.devMode ? true : false),
-            volume: 0.1,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay: 0
-        });
-        this.introMusic.play();
 
         this.input.on('gameobjectdown', this.onClick, this);
         this.input.keyboard.on('keydown', this.onClick, this);
@@ -36,7 +30,6 @@ class SceneIntro extends Phaser.Scene {
         if (this.onClickExecuted) return;
         this.onClickExecuted = true;
 
-        this.introMusic.stop();
         this.scene.start("SceneLevel1");
     }
 }
