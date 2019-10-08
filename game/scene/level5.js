@@ -45,6 +45,14 @@ class SceneLevel5 extends Phaser.Scene {
         GlobalScene.CameraManager.create(this);
         GlobalScene.ScoreManager.create(this);
         GlobalScene.LevelEditorManager.create(this);
+
+        for (var i = 0; i < 100; i++) {
+
+            var bomb = this.bombs.create(400 + (i * 50), 550, 'level1_bomb');
+            bomb.setBounce(1);
+            bomb.setCollideWorldBounds(true);
+            bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        }
     }
 
     update (time, delta) {
