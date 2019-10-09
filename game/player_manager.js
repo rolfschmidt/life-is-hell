@@ -16,6 +16,7 @@ PlayerManager.prototype.create = function(scene) {
     scene.player.store.jumpVelocityY = 0;
     scene.player.store.jumpCount     = 2;
     scene.player.store.jumpPossible  = true;
+    scene.player.store.jumpUntil     = 0;
 }
 
 PlayerManager.prototype.update = function(scene) {

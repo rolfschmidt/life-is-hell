@@ -15,7 +15,7 @@ ScoreManager.prototype.update = function(scene) {
 }
 
 ScoreManager.prototype.text = function(scene) {
-    return ( scene.scoreCount / 100 ) + ' x ❤';
+    return ( scene.scoreCount / 100 ) + ' x ★';
 }
 
 ScoreManager.prototype.refresh = function(scene) {

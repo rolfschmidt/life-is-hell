@@ -4,7 +4,6 @@ class SceneGlobal extends Phaser.Scene {
     }
 
     preload() {
-        console.log('preload global');
         this.load.atlas('sprites', './assets/spritesheet.png', './assets/sprites.json');
 
         var that = this;
@@ -13,6 +12,10 @@ class SceneGlobal extends Phaser.Scene {
         });
 
         this.load.json('level1_data', './game/scene/level1/objects.json');
+        this.load.json('level2_data', './game/scene/level2/objects.json');
+        this.load.json('level3_data', './game/scene/level3/objects.json');
+        this.load.json('level4_data', './game/scene/level4/objects.json');
+        this.load.json('level5_data', './game/scene/level5/objects.json');
 
         this.StateManager       = new StateManager();
         this.MusicManager       = new MusicManager();
@@ -32,6 +35,8 @@ class SceneGlobal extends Phaser.Scene {
     }
 
     create() {
+        this.gameDifficulty = 'hell';
+
         for (var frameName in spriteManifest['animations']) {
 
             var frameStart = 1
@@ -52,6 +57,6 @@ class SceneGlobal extends Phaser.Scene {
             });
         }
 
-        this.scene.start( (config.devMode ? "SceneLevel1" : "SceneIntro") );
+        this.scene.start((config.devMode ? "SceneLevel1" : "SceneIntro"));
     }
 }

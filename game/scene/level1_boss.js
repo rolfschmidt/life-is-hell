@@ -4,10 +4,11 @@ class SceneLevel1Boss extends Phaser.Scene {
     }
 
     preload() {
-        this.load.audio('level1_boss_music', './sounds/level1_boss_32kbps.mp3');
     }
 
     create() {
+
+        return this.scene.start("SceneGameWin");
 
         //  A simple background for our game
         this.add.image(512, 384, 'level1_boss_sky');

@@ -6,7 +6,7 @@ DoorManager.prototype.preload = function(scene) {
 DoorManager.prototype.create = function(scene) {
     scene.bossDoors           = scene.physics.add.group();
 
-    let data = scene.cache.json.get('level1_data');
+    let data = scene.cache.json.get(scene.levelKey);
     if ( typeof data.bossDoors == 'object' ) {
         for (var dataIndex = 0; dataIndex < data.bossDoors.length; dataIndex++) {
             var block = data.bossDoors[dataIndex];

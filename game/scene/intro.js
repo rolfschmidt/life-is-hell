@@ -4,34 +4,48 @@ class SceneIntro extends Phaser.Scene {
     }
 
     preload() {
-        this.load.audio('intro_music', './sounds/intro_32kbps.mp3');
+        var GlobalScene = this.scene.manager.keys['SceneGlobal'];
+
+        GlobalScene.MusicManager.preload(this);
     }
 
     create() {
+        var GlobalScene = this.scene.manager.keys['SceneGlobal'];
+
+        GlobalScene.MusicManager.create(this);
+
+        this.onClickExecuted = false;
 
         //  A simple background for our game
         this.add.image(512, 384, 'intro_sky');
-        var play = this.add.image(512, 384, 'intro_play');
 
-        play.setInteractive();
+        var playEasy = this.add.image(250, 270, 'intro_play_easy');
+        playEasy.setInteractive();
+        var playHard = this.add.image(500, 270, 'intro_play_hard');
+        playHard.setInteractive();
+        var playHell = this.add.image(750, 270, 'intro_play_hell');
+        playHell.setInteractive();
 
-        this.input.on('gameobjectdown', this.onClick, this);
-
-        // load intro music
-        this.introMusic = this.sound.add('intro_music', {
-            mute: (config.devMode ? true : false),
-            volume: 0.1,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: true,
-            delay: 0
-        });
-        this.introMusic.play();
+        var sceneIntro = this;
+        this.input.on('gameobjectdown', function(pointer, gameObject) {
+            this.onClick(sceneIntro, pointer, gameObject);
+        }, this);
     }
 
-    onClick(pointer, gameObject) {
-        this.introMusic.stop();
+    onClick(sceneIntro, pointer, gameObject) {
+        var GlobalScene = sceneIntro.scene.manager.keys['SceneGlobal'];
+
+        if (this.onClickExecuted) return;
+        this.onClickExecuted = true;
+
+        GlobalScene.gameDifficulty = 'easy';
+        if ( gameObject.texture.key == 'intro_play_hard' ) {
+            GlobalScene.gameDifficulty = 'hard';
+        }
+        if ( gameObject.texture.key == 'intro_play_hell' ) {
+            GlobalScene.gameDifficulty = 'hell';
+        }
+
         this.scene.start("SceneLevel1");
     }
 }

@@ -1,6 +1,6 @@
-class SceneLevel1 extends Phaser.Scene {
+class SceneLevel5 extends Phaser.Scene {
     constructor() {
-        super({ key: 'SceneLevel1', active: false });
+        super({ key: 'SceneLevel5', active: false });
     }
 
     preload() {
@@ -26,9 +26,9 @@ class SceneLevel1 extends Phaser.Scene {
     create() {
         var GlobalScene = this.scene.manager.keys['SceneGlobal'];
 
-        this.levelKey              = 'level1_data';
-        GlobalScene.sceneNextLevel = 'SceneLevel2';
-        GlobalScene.lastScene      = 'SceneLevel1';
+        this.levelKey              = 'level5_data';
+        GlobalScene.sceneNextLevel = undefined;
+        GlobalScene.lastScene      = 'SceneLevel5';
 
         GlobalScene.StateManager.create(this);
         GlobalScene.MusicManager.create(this);
@@ -45,6 +45,14 @@ class SceneLevel1 extends Phaser.Scene {
         GlobalScene.CameraManager.create(this);
         GlobalScene.ScoreManager.create(this);
         GlobalScene.LevelEditorManager.create(this);
+
+        for (var i = 0; i < 100; i++) {
+
+            var bomb = this.bombs.create(400 + (i * 50), 550, 'level1_bomb');
+            bomb.setBounce(1);
+            bomb.setCollideWorldBounds(true);
+            bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        }
     }
 
     update (time, delta) {
